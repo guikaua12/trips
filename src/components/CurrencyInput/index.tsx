@@ -19,14 +19,16 @@ export default function CurrencyInput({ className, onBlur, ...props }: InputHTML
     const ref = useRef<HTMLInputElement>(null);
 
     return (
-        <div className="group flex flex-row-reverse items-center gap-1 border border-lightGray rounded-md py-1 px-2 text-sm text-gray">
+        <div
+            className={twMerge(
+                'group flex flex-row-reverse items-center gap-1 border border-lightGray rounded-md p-2 text-sm text-gray focus-within:border-purple',
+                className
+            )}
+        >
             <input
                 ref={ref}
                 id="budget-input"
-                className={twMerge(
-                    'text-sm text-gray outline-none group-focus-within:text-purple [&:focus~label]:text-purple',
-                    className
-                )}
+                className="w-full h-full outline-none group-focus-within:text-purple [&:focus~label]:text-purple [&:not(:placeholder-shown)~label]:inline"
                 type="number"
                 onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
                     const afterComma = countDecimalPlaces(e.target.valueAsNumber);
@@ -40,7 +42,7 @@ export default function CurrencyInput({ className, onBlur, ...props }: InputHTML
                 }}
                 {...props}
             />
-            <label htmlFor="budget-input">
+            <label htmlFor="budget-input" className="hidden">
                 <span>R$</span>
             </label>
         </div>

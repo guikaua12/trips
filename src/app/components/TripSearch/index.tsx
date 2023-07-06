@@ -1,6 +1,10 @@
+'use client';
+
 import React from 'react';
 import Input from '@/components/Input';
 import CurrencyInput from '@/components/CurrencyInput';
+import DatePicker from '@/components/DatePicker';
+import Button from '@/components/Button';
 
 export default function TripSearch() {
     return (
@@ -12,11 +16,12 @@ export default function TripSearch() {
             <form action="#" className="flex flex-col gap-3">
                 <Input type="text" className="w-full" placeholder="Onde você quer ir?" />
                 <div className="flex gap-3">
-                    <Input type="text" className="w-full" placeholder="Primeira data" />
-                    <CurrencyInput className="w-full" placeholder="Orçamento" />
+                    {/*<Input type="text" placeholder="Primeira data" />*/}
+                    <DatePicker onChange={() => {}} className="w-full h-full" placeholderText="Primeira data" />
+                    <CurrencyInput className="w-full h-full" placeholder="Orçamento" />
                 </div>
 
-                <button></button>
+                <Button>Pesquisar</Button>
             </form>
         </div>
     );

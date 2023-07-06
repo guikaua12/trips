@@ -6,7 +6,7 @@ export default function Input({ className, ...props }: InputHTMLAttributes<HTMLI
         <input
             {...props}
             className={twMerge(
-                'border border-lightGray rounded-md py-1 px-2 text-sm text-gray outline-none focus:border-purple focus:text-purple',
+                'border border-lightGray rounded-md p-2 text-sm text-gray outline-none focus:border-purple focus:text-purple',
                 className
             )}
         />
