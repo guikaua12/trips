@@ -1,7 +1,10 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
+import { useSession } from '@/hooks/useSession';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -28,13 +31,30 @@ export default function Header() {
     return (
         <div className="p-5 flex justify-between items-center">
             <div className="w-[150] h-[150]">
-                <Image src="/logo.png" alt="Logo" width={150} height={150}></Image>
+                <Image src="/logo.png" alt="Logo" width={150} height={150} />
             </div>
 
-            <div className="flex gap-4 rounded-[40px] border border-lightGray p-2 cursor-pointer">
-                <AiOutlineMenu className="fill-gray" size={20} />
-                <FaUserCircle className="fill-gray" size={20} />
-            </div>
+            {loggedIn ? (
+                <div
+                    className="flex gap-4 relative rounded-[40px] border border-lightGray p-2 cursor-pointer"
+                    onClick={handleMenuClick}
+                >
+                    <AiOutlineMenu className="fill-gray" size={20} />
+                    <FaUserCircle className="fill-gray" size={20} />
+                    {isOpen && (
+                        <div
+                            className="absolute rounded-[40px] top-11 left-0 w-full text-purple font-medium text-sm text-center shadow-lg p-2"
+                            onClick={handleLogoutClick}
+                        >
+                            Logout
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <button className="text-purple font-medium text-sm" onClick={handleLoginClick}>
+                    Login
+                </button>
+            )}
         </div>
     );
 }
