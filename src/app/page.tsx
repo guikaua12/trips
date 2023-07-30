@@ -9,7 +9,7 @@ interface HomeProps {
 }
 
 async function getData(): Promise<Trip[]> {
-    const response = await fetch('http://localhost:2000/trips/search', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_ENDPOINT + '/trips/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

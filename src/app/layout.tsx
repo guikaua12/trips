@@ -1,6 +1,7 @@
 import './globals.css';
 import { Poppins } from 'next/font/google';
 import Header from '@/layout/Header';
+import ReduxProvider from '@/app/components/ReduxProvider';
 
 const poppins = Poppins({
     subsets: ['latin'],
@@ -22,8 +23,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="pt-br">
             <body className={`w-screen h-screen ${poppins.className}`}>
-                <Header></Header>
-                {children}
+                <ReduxProvider>
+                    <Header></Header>
+                    {children}
+                </ReduxProvider>
             </body>
         </html>
     );
