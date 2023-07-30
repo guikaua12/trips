@@ -4,6 +4,27 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
 
 export default function Header() {
+    const [isOpen, setIsOpen] = useState(false);
+    const { loggedIn, user, login } = useSession();
+
+    function handleMenuClick() {
+        setIsOpen((prevState) => !prevState);
+    }
+
+    async function handleLoginClick() {
+        const result = await login('wadawdawwd', 'awdawdaw');
+        if (result && result.error) {
+            console.log(result.message);
+        }
+    }
+
+    function handleLogoutClick() {
+        console.log('handleLogoutClick');
+    }
+
+    console.log(loggedIn);
+    console.log(user);
+
     return (
         <div className="p-5 flex justify-between items-center">
             <div className="w-[150] h-[150]">
