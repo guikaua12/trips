@@ -1,3 +1,5 @@
+import ActionTypes from '@/redux/user/actionTypes';
+
 export type UserState = {
     status: 'authenticated' | 'unauthenticated' | 'loading';
     user?: {
