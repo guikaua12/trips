@@ -9,18 +9,16 @@ import Link from 'next/link';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
-    const { loggedIn, user, login } = useSession();
+    const { isAuthenticated, user } = useSession();
 
     function handleMenuClick() {
         setIsOpen((prevState) => !prevState);
     }
 
     function handleLogoutClick() {
-        console.log('handleLogoutClick');
+        localStorage.removeItem('session');
+        localStorage.removeItem('user');
     }
-
-    console.log(loggedIn);
-    console.log(user);
 
     return (
         <div className="p-5 flex justify-between items-center">
@@ -28,7 +26,7 @@ export default function Header() {
                 <Image src="/logo.png" alt="Logo" width={150} height={150} />
             </div>
 
-            {loggedIn ? (
+            {isAuthenticated() ? (
                 <div
                     className="flex gap-4 relative rounded-[40px] border border-lightGray p-2 cursor-pointer"
                     onClick={handleMenuClick}

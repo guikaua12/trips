@@ -30,7 +30,8 @@ export default function Login() {
     });
 
     const dispatch = useDispatch();
-    const { login, status } = useSession();
+    const { status, login, isAuthenticated } = useSession();
+    const isAuth = isAuthenticated();
 
     async function handleSubmitClick({ email, password }: LoginSchemaType) {
         const data = await login(email, password, dispatch);
@@ -48,7 +49,6 @@ export default function Login() {
             </div>
 
             <Card title="Login">
-                <span>{status}</span>
                 <form className="flex flex-col gap-2" onSubmit={handleSubmit(handleSubmitClick)}>
                     <div className="mb-4 flex flex-col gap-3">
                         <Input

@@ -24,13 +24,23 @@ function login(email: string, password: string, dispatch: Dispatch) {
             }
 
             dispatch({ type: ActionTypes.AUTH_STATUS, payload: { status: 'authenticated' } });
+            localStorage.setItem('session', JSON.stringify(data.session));
+            localStorage.setItem('user', JSON.stringify(data.user));
 
             return data;
         })
         .catch((err) => console.log(err));
 }
 
+function isAuthenticated() {
+    const { status }: UserState = useSelector((state: any) => state.userReducer);
+
+    if (localStorage.getItem('session') && localStorage.getItem('user')) return true;
+
+    return status === 'authenticated';
+}
+
 export function useSession() {
     const { status, user }: UserState = useSelector((state: any) => state.userReducer);
-    return { status, user, login };
+    return { status, user, login, isAuthenticated };
 }
