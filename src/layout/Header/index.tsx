@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
 import { useSession } from '@/hooks/useSession';
+import Link from 'next/link';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,13 +13,6 @@ export default function Header() {
 
     function handleMenuClick() {
         setIsOpen((prevState) => !prevState);
-    }
-
-    async function handleLoginClick() {
-        const result = await login('wadawdawwd', 'awdawdaw');
-        if (result && result.error) {
-            console.log(result.message);
-        }
     }
 
     function handleLogoutClick() {
@@ -51,9 +45,9 @@ export default function Header() {
                     )}
                 </div>
             ) : (
-                <button className="text-purple font-medium text-sm" onClick={handleLoginClick}>
+                <Link className="text-purple font-medium text-sm" href="/auth/login">
                     Login
-                </button>
+                </Link>
             )}
         </div>
     );
