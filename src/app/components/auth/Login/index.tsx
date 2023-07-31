@@ -9,6 +9,8 @@ import Button from '@/components/Button';
 import React from 'react';
 import { z } from 'zod';
 import { useSession } from '@/hooks/useSession';
+import { useDispatch } from 'react-redux';
+import { FaCircleNotch } from 'react-icons/fa6';
 
 const loginSchema = z.object({
     email: z.string().email('E-mail inválido.').nonempty('O e-mail nâo pode ser vazio.'),
@@ -27,10 +29,11 @@ export default function Login() {
         resolver: zodResolver(loginSchema),
     });
 
-    const { login } = useSession();
+    const dispatch = useDispatch();
+    const { login, status } = useSession();
 
     async function handleSubmitClick({ email, password }: LoginSchemaType) {
-        const data = await login(email, password);
+        const data = await login(email, password, dispatch);
         if (!data) return;
 
         if (data.error) {
@@ -45,6 +48,7 @@ export default function Login() {
             </div>
 
             <Card title="Login">
+                <span>{status}</span>
                 <form className="flex flex-col gap-2" onSubmit={handleSubmit(handleSubmitClick)}>
                     <div className="mb-4 flex flex-col gap-3">
                         <Input
@@ -64,7 +68,9 @@ export default function Login() {
                             error={errors.password?.message?.toString()}
                         />
                     </div>
-                    <Button>Login</Button>
+                    <Button disabled={status === 'loading'}>
+                        {status === 'loading' ? <FaCircleNotch className="animate-spin" size={20} /> : 'Entrar'}
+                    </Button>
                 </form>
             </Card>
         </div>
