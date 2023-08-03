@@ -15,5 +15,5 @@ export default function PrivateRoute({ children, redirectTo, condition }: Privat
         return null;
     }
 
-    return <>{children}</>;
+    return children;
 }
