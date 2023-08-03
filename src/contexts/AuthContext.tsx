@@ -85,7 +85,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
             return { user, session, error, message };
         } catch (err) {
-            console.log('erro porra caralho');
             if (err instanceof AxiosError && err.response) {
                 const { user, session, error, message }: LoginResponseType = err.response.data;
 
