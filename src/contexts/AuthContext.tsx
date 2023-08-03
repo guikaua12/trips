@@ -1,10 +1,9 @@
 'use client';
 
-import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import { api } from '@/services/api';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { User } from '@/types/User';
-import WithAxios from '@/components/WithAxios';
 
 type LoginRequestType = {
     email: string;
@@ -44,6 +43,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         verifySession();
     }, []);
+
+    function setUserFn(data: User | null): void {
+        setUser(data);
+        localStorage.setItem('trips_user', JSON.stringify(data));
+    }
 
     async function login({ email, password }: LoginRequestType): Promise<LoginResponseType> {
         // api request
