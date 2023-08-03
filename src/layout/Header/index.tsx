@@ -5,9 +5,11 @@ import Image from 'next/image';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
 import Link from 'next/link';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
+    const { isLogged, logout } = useAuth();
 
     function handleMenuClick() {
         setIsOpen((prevState) => !prevState);
@@ -23,7 +25,7 @@ export default function Header() {
                 <Image src="/logo.png" alt="Logo" width={80} height={80} />
             </div>
 
-            {false ? (
+            {isLogged ? (
                 <div
                     className="flex gap-4 relative rounded-[40px] border border-lightGray p-2 cursor-pointer"
                     onClick={handleMenuClick}
