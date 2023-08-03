@@ -5,22 +5,20 @@ import { api } from '@/services/api';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function WithAxios({ children }: { children: ReactNode }) {
-    const [isSet, setIsSet] = useState(false);
-    const { setUser } = useAuth();
+    const { isLogged, setUserFn, logout } = useAuth();
 
-    // TODO: Fix adding interceptor
     useEffect(() => {
         const id = api.interceptors.response.use(
             (response) => response,
-            async (error) => {
-                console.log('cuceta: ' + error);
+            (error) => {
+                console.log(error);
+
                 const status = error.response.status;
 
                 // unauthorized
                 if (status === 401) {
                     // logout
-                    const { user } = useAuth();
-                    console.log(user);
+                    logout();
                     console.log('Invalid session, logout.');
                 }
 
@@ -28,9 +26,8 @@ export default function WithAxios({ children }: { children: ReactNode }) {
             }
         );
 
-        setIsSet(true);
         return () => api.interceptors.response.eject(id);
     }, [setUser]);
 
-    return isSet && children;
+    return children;
 }

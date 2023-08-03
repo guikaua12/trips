@@ -28,9 +28,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     return (
         <html lang="pt-br">
             <body className={`w-screen h-screen ${poppins.className}`}>
-                <WithAxios>
-                    <AuthProvider>{children}</AuthProvider>
-                </WithAxios>
+                <AuthProvider>
+                    <WithAxios>{children}</WithAxios>
+                </AuthProvider>
             </body>
         </html>
     );
