@@ -50,9 +50,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     async function login({ email, password }: LoginRequestType): Promise<LoginResponseType> {
-        // api request
-        const response = await api
-            .post(
+        try {
+            const response = await api.post(
                 '/users/login',
                 { email, password },
                 {
@@ -60,22 +59,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                         'Content-Type': 'application/json',
                     },
                 }
-            )
-            .catch((error) => {
-                console.log(error);
+            );
 
-                return error;
-            });
+            const { user, session, error, message }: LoginResponseType = response.data;
 
-        const data: LoginResponseType = response instanceof AxiosError ? response.response?.data : response.data;
+            if (user) {
+                setUserFn(user);
+                localStorage.setItem('trips_session', JSON.stringify(session));
+            }
 
-        if (!data.error) {
-            setUser(data.user as User);
-            localStorage.setItem('trips_user', JSON.stringify(data.user));
-            localStorage.setItem('trips_session', JSON.stringify(data.session));
+            return { user, session, error, message };
+        } catch (err) {
+            console.log('erro porra caralho');
+            if (err instanceof AxiosError && err.response) {
+                const { user, session, error, message }: LoginResponseType = err.response.data;
+
+                return { user, session, error, message };
+            }
         }
 
-        return data;
+        return {};
+    }
+
+    function logout(): void {
+        setUser(null);
+        localStorage.removeItem('trips_user');
+        localStorage.removeItem('trips_session');
     }
 
     return <AuthContext.Provider value={{ login, user, setUser, isLogged }}>{children}</AuthContext.Provider>;
