@@ -4,12 +4,10 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
-import { useSession } from '@/hooks/useSession';
 import Link from 'next/link';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
-    const { isAuthenticated, user } = useSession();
 
     function handleMenuClick() {
         setIsOpen((prevState) => !prevState);
@@ -22,11 +20,11 @@ export default function Header() {
 
     return (
         <div className="p-5 flex justify-between items-center">
-            <div className="w-[150] h-[150]">
-                <Image src="/logo.png" alt="Logo" width={150} height={150} />
+            <div className="w-[80] h-[80]">
+                <Image src="/logo.png" alt="Logo" width={80} height={80} />
             </div>
 
-            {isAuthenticated() ? (
+            {false ? (
                 <div
                     className="flex gap-4 relative rounded-[40px] border border-lightGray p-2 cursor-pointer"
                     onClick={handleMenuClick}
