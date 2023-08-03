@@ -14,8 +14,7 @@ export default function Header() {
     }
 
     function handleLogoutClick() {
-        localStorage.removeItem('session');
-        localStorage.removeItem('user');
+        logout();
     }
 
     return (
