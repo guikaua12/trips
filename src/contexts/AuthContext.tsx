@@ -20,10 +20,17 @@ type LoginResponseType = {
     message?: string;
 };
 
+type SessionVerifyType = {
+    user?: User;
+    error?: boolean;
+    message?: string;
+};
+
 type AuthContextType = {
     login: (data: LoginRequestType) => Promise<LoginResponseType>;
+    logout: () => void;
     user: User | null;
-    setUser: Dispatch<SetStateAction<User | null>>;
+    setUserFn: (data: User | null) => void;
     isLogged: boolean;
 };
 
@@ -36,9 +43,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const verifySession = async (): Promise<void> => {
             let session: string | null = JSON.parse(localStorage.getItem('trips_session')!);
-            if (!session || !session.length) session = null;
 
-            await api.get(`/session/verify/${session}`);
+            if (session) {
+                const response = await api.get(`/session/verify/${session}`);
+                if (!response.data) return;
+
+                const { user }: SessionVerifyType = response.data;
+
+                if (user) {
+                    setUserFn(user);
+                }
+            }
         };
 
         verifySession();
@@ -87,5 +102,5 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem('trips_session');
     }
 
-    return <AuthContext.Provider value={{ login, user, setUser, isLogged }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ login, logout, user, setUserFn, isLogged }}>{children}</AuthContext.Provider>;
 }
