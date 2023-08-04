@@ -25,7 +25,6 @@ async function verifyAuth(): Promise<boolean> {
 
 export default async function LoginPage() {
     const valid = await verifyAuth();
-    console.log(valid);
     if (!valid) {
         return <Redirect to="/"></Redirect>;
     }
