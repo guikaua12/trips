@@ -11,7 +11,6 @@ async function verifyAuth(): Promise<boolean> {
     const cookieStore = cookies();
 
     const session = cookieStore.get('trips_session');
-    console.log(session);
 
     return !session;
 }
