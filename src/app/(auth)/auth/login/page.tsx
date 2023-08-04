@@ -1,5 +1,7 @@
 import React from 'react';
 import Login from '@/app/components/auth/Login';
+import Redirect from '@/app/components/Redirect';
+import { cookies } from 'next/headers';
 
 export const metadata = {
     title: 'Login / Trips',
@@ -12,6 +14,21 @@ export const metadata = {
     ],
 };
 
-export default function LoginPage() {
+async function verifyAuth(): Promise<boolean> {
+    const cookieStore = cookies();
+
+    const session = cookieStore.get('trips_session');
+    console.log(session);
+
+    return !session;
+}
+
+export default async function LoginPage() {
+    const valid = await verifyAuth();
+    console.log(valid);
+    if (!valid) {
+        return <Redirect to="/"></Redirect>;
+    }
+
     return <Login />;
 }
