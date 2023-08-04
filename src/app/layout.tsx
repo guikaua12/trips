@@ -3,7 +3,7 @@ import { Poppins } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 import WithAxios from '@/components/WithAxios';
 import { ReactNode, Suspense } from 'react';
-import Image from 'next/image';
+import FullScreenLoading from '@/components/FullScreenLoading';
 
 const poppins = Poppins({
     subsets: ['latin'],
@@ -27,15 +27,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     return (
         <html lang="pt-br">
             <body className={`w-screen h-screen ${poppins.className}`}>
-                <Suspense
-                    fallback={
-                        <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-5 animate-pulse">
-                            <div className="w-[60] h-[60]">
-                                <Image src="/logo-icon.png" width={60} height={60} alt="Logo" />
-                            </div>
-                        </div>
-                    }
-                >
+                <Suspense fallback={<FullScreenLoading />}>
                     <AuthProvider>
                         <WithAxios>{children}</WithAxios>
                     </AuthProvider>
