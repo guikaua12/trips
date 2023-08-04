@@ -9,6 +9,7 @@ import Button from '@/components/Button';
 import React from 'react';
 import { z } from 'zod';
 import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 const loginSchema = z.object({
     email: z.string().email('E-mail inválido.').nonempty('O e-mail nâo pode ser vazio.'),
@@ -18,6 +19,8 @@ const loginSchema = z.object({
 type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export default function Login() {
+    const router = useRouter();
+
     const {
         handleSubmit,
         register,
@@ -37,6 +40,9 @@ export default function Login() {
         if (data.error) {
             return setError('email', { message: data.message });
         }
+
+        router.replace('/');
+        router.refresh();
     }
 
     return (
