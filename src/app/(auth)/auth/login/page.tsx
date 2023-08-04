@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from '@/app/components/auth/Login';
-import Redirect from '@/app/components/Redirect';
 import { cookies } from 'next/headers';
+import Redirect from '@/app/components/Redirect';
 
 export const metadata = {
     title: 'Login / Trips',
@@ -15,10 +15,12 @@ async function verifyAuth(): Promise<boolean> {
     return !session;
 }
 
+const delay = (ms: number = 750) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export default async function LoginPage() {
     const valid = await verifyAuth();
     if (!valid) {
-        return <Redirect to="/"></Redirect>;
+        return <Redirect to="/" />;
     }
 
     return <Login />;
