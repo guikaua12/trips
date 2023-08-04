@@ -1,7 +1,6 @@
 import TripSearch from '@/app/components/TripSearch';
 import QuickSearch from '@/app/components/QuickSearch';
 import { Trip } from '@/types/Trip';
-import { use } from 'react';
 import RecommendedTrips from '@/app/components/RecommendedTrips';
 
 interface HomeProps {
@@ -22,8 +21,10 @@ async function getData(): Promise<Trip[]> {
     return await response.json();
 }
 
-export default function Home() {
-    const trips = use(getData());
+const delay = (ms: number = 750) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export default async function Home() {
+    const trips = await getData();
 
     return (
         <>
