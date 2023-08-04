@@ -1,16 +1,8 @@
 'use client';
+import { ReactNode } from 'react';
 
-import PrivateRoute from '@/app/components/auth/PrivateRoute';
-import { useAuth } from '@/hooks/useAuth';
-
-const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-    const { isLogged } = useAuth();
-
-    return (
-        <PrivateRoute redirectTo="/" condition={!isLogged}>
-            {children}
-        </PrivateRoute>
-    );
+const AuthLayout = ({ children }: { children: ReactNode }) => {
+    return children;
 };
 
 export default AuthLayout;
