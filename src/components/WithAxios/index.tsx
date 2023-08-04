@@ -5,7 +5,7 @@ import { api } from '@/services/api';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function WithAxios({ children }: { children: ReactNode }) {
-    const { isLogged, setUserFn, logout } = useAuth();
+    const { isLogged, logout } = useAuth();
 
     useEffect(() => {
         const id = api.interceptors.response.use(
@@ -16,7 +16,7 @@ export default function WithAxios({ children }: { children: ReactNode }) {
                 const status = error.response.status;
 
                 // unauthorized
-                if (status === 401) {
+                if (status === 401 && isLogged) {
                     // logout
                     logout();
                     console.log('Invalid session, logout.');
