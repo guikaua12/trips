@@ -20,7 +20,7 @@ export default function Header() {
     }
 
     return (
-        <div className="p-5 flex justify-between items-center">
+        <div className="container p-5 flex justify-between items-center m-auto">
             <div className="w-[80] h-[80]">
                 <Image src="/logo.png" alt="Logo" width={80} height={80} />
             </div>

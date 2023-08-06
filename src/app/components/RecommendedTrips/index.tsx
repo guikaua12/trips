@@ -9,7 +9,7 @@ interface RecommendedTripsProps {
 
 export default function RecommendedTrips({ trips }: RecommendedTripsProps) {
     return (
-        <div>
+        <div className="p-4">
             <SectionTitle className="mb-3">Destinos Recomendados</SectionTitle>
             <div className="flex flex-col items-center">
                 {trips.map((trip) => {

@@ -8,7 +8,7 @@ import Button from '@/components/Button';
 
 export default function TripSearch() {
     return (
-        <div className="flex flex-col gap-3 p-4">
+        <div className="flex flex-col gap-3 p-4 bg-worldMap bg-no-repeat bg-cover">
             <h1 className="font-semibold text-xl">
                 Encontre sua pròxima <span className="text-purple">viagem!</span>
             </h1>

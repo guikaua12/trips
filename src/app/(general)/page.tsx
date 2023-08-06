@@ -27,10 +27,10 @@ export default async function Home() {
     const trips = await getData();
 
     return (
-        <>
+        <div className="container m-auto">
             <TripSearch />
             <QuickSearch />
             <RecommendedTrips trips={trips} />
-        </>
+        </div>
     );
 }

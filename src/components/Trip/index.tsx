@@ -8,7 +8,7 @@ interface Props {
 
 export default function Trip({ trip }: Props) {
     return (
-        <div className="flex flex-col mb-5">
+        <div className="flex flex-col mb-5 max-w-[280px]">
             <div className="relative w-[280] h-[280]">
                 <Image
                     src={trip.coverImage}
@@ -19,7 +19,7 @@ export default function Trip({ trip }: Props) {
                 />
             </div>
 
-            <div className="flex flex-col w-full mt-2">
+            <div className="flex flex-col mt-2">
                 <h1 className="text-sm font-medium text-darkPurple mb-1">{trip.name}</h1>
                 <span className="text-xs text-gray">{trip.location}</span>
                 <div className="flex gap-1">

@@ -19,9 +19,9 @@ export default function Input(
     ref: LegacyRef<HTMLInputElement> | undefined
 ) {
     const inputClassName = twMerge(
+        'flex border border-lightGray rounded-md focus-within:border-purple focus-within:text-purple outline-none p-2 text-sm text-gray',
         className,
-        'outline-none border border-lightGray focus-within:border-purple rounded-md p-2 text-sm',
-        error ? 'border-red-500' : ''
+        error && 'border-red-500 hover:border-red-500 focus:focus-within:border-red-500'
     );
 
     return (
