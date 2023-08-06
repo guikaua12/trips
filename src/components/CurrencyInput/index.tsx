@@ -15,7 +15,7 @@ function limitPlaces(number: number) {
     return Math.floor(number * 100) / 100;
 }
 
-export default function CurrencyInput({ className, onBlur, ...props }: InputHTMLAttributes<HTMLInputElement>) {
+export default function CurrencyInput({ id, className, onBlur, ...props }: InputHTMLAttributes<HTMLInputElement>) {
     const ref = useRef<HTMLInputElement>(null);
 
     return (
@@ -27,7 +27,7 @@ export default function CurrencyInput({ className, onBlur, ...props }: InputHTML
         >
             <input
                 ref={ref}
-                id="budget-input"
+                id={id}
                 className="w-full h-full outline-none group-focus-within:text-purple [&:focus~label]:text-purple [&:not(:placeholder-shown)~label]:inline"
                 type="number"
                 onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
@@ -42,7 +42,7 @@ export default function CurrencyInput({ className, onBlur, ...props }: InputHTML
                 }}
                 {...props}
             />
-            <label htmlFor="budget-input" className="hidden">
+            <label htmlFor={id} className="hidden">
                 <span>R$</span>
             </label>
         </div>
