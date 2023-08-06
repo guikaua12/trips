@@ -9,14 +9,14 @@ interface Props {
 
 export default function Trip({ trip }: Props) {
     return (
-        <div className="flex flex-col mb-5 max-w-[280px]">
-            <div className="relative w-[280] h-[280]">
+        <div className="flex flex-col mb-5 max-w-[300px]">
+            <div className="relative w-full">
                 <Image
                     src={trip.coverImage}
                     width={300}
                     height={300}
                     alt="Cover Image"
-                    className="rounded-2xl object-cover"
+                    className="rounded-2xl object-cover w-full h-full"
                 />
             </div>
 

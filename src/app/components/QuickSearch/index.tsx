@@ -5,7 +5,7 @@ import { LiaBuildingSolid } from 'react-icons/lia';
 
 export default function QuickSearch() {
     return (
-        <div className="flex flex-col items-center text-gray p-4">
+        <div className="flex flex-col items-center text-gray p-4 container m-auto">
             <SectionTitle className="mb-3">Tente pesquisar por</SectionTitle>
             <ul className="flex w-full justify-between">
                 <li>

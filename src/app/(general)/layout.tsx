@@ -1,6 +1,7 @@
 import Header from '@/layout/Header';
 import React, { Suspense } from 'react';
 import Image from 'next/image';
+import Footer from '@/layout/Footer';
 export const metadata = {
     title: 'Home / Trips',
     description: 'Sistema de reserva de viagens',
@@ -15,8 +16,9 @@ export const metadata = {
 const GeneralLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <>
-            <Header></Header>
+            <Header />
             {children}
+            <Footer />
         </>
     );
 };

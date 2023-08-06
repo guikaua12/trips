@@ -12,25 +12,27 @@ registerLocale('pt-BR', ptBR);
 interface InputProps extends ReactDatePickerProps {
     error?: boolean;
     errorMessage?: string;
+    wrapperClassName?: string;
 }
 
 export default function Input(
-    { className, error, errorMessage, ...props }: InputProps,
+    { className, wrapperClassName, error, errorMessage, ...props }: InputProps,
     ref: LegacyRef<HTMLInputElement> | undefined
 ) {
     const inputClassName = twMerge(
-        'flex border border-lightGray rounded-md focus-within:border-purple focus-within:text-purple outline-none p-2 text-sm text-gray',
-        className,
-        error && 'border-red-500 hover:border-red-500 focus:focus-within:border-red-500'
+        'flex border w-full border-lightGray rounded-md focus-within:border-purple focus-within:text-purple outline-none p-2 text-sm text-gray',
+        error && 'border-red-500 hover:border-red-500 focus:focus-within:border-red-500',
+        className
     );
+    const inputWrapperClassName = twMerge('flex flex-col', wrapperClassName);
 
     return (
-        <div className="flex w-full flex-col">
+        <div className={inputWrapperClassName}>
             <DatePicker
                 locale="pt-BR"
                 wrapperClassName="w-full"
-                className={inputClassName}
                 enableTabLoop={false}
+                className={inputClassName}
                 {...props}
             />
             {error && errorMessage && <div className="mt-1 text-xs text-red-500">{errorMessage}</div>}

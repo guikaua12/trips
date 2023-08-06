@@ -15,20 +15,27 @@ function limitPlaces(number: number) {
     return Math.floor(number * 100) / 100;
 }
 
-export default function CurrencyInput({ id, className, onBlur, ...props }: InputHTMLAttributes<HTMLInputElement>) {
+interface CurrencyInputProps extends InputHTMLAttributes<HTMLInputElement> {
+    wrapperClassName?: string;
+}
+
+export default function CurrencyInput({ id, className, wrapperClassName, onBlur, ...props }: CurrencyInputProps) {
     const ref = useRef<HTMLInputElement>(null);
 
     return (
         <div
             className={twMerge(
-                'group flex flex-row-reverse items-center gap-1 border border-lightGray rounded-md p-2 text-sm text-gray focus-within:border-purple',
-                className
+                'group flex flex-row-reverse items-center gap-1 border border-lightGray rounded-md p-2 text-sm text-gray focus-within:border-purple bg-white',
+                wrapperClassName
             )}
         >
             <input
                 ref={ref}
                 id={id}
-                className="w-full h-full outline-none group-focus-within:text-purple [&:focus~label]:text-purple [&:not(:placeholder-shown)~label]:inline"
+                className={twMerge(
+                    'w-full h-full outline-none group-focus-within:text-purple [&:focus~label]:text-purple [&:not(:placeholder-shown)~label]:inline',
+                    className
+                )}
                 type="number"
                 onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
                     const afterComma = countDecimalPlaces(e.target.valueAsNumber);
