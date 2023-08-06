@@ -9,6 +9,9 @@ module.exports = {
                 purple: '#590BD8',
                 darkPurple: '#312A4F',
             },
+            backgroundImage: {
+                worldMap: "url('/world-map.png')",
+            },
         },
     },
     plugins: [],
