@@ -20,14 +20,16 @@ export default function Header() {
     }
 
     return (
-        <div className="container p-5 flex justify-between items-center m-auto">
-            <div className="w-[80] h-[80]">
-                <Image src="/logo.png" alt="Logo" width={80} height={80} />
-            </div>
+        <div className="container m-auto flex items-center justify-between p-5">
+            <Link href="/">
+                <div className="relative h-[30px] w-[80px]">
+                    <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+                </div>
+            </Link>
 
             {isLogged ? (
                 <div
-                    className="flex gap-4 relative rounded-[40px] border border-lightGray p-2 cursor-pointer"
+                    className="relative flex cursor-pointer gap-4 rounded-[40px] border border-lightGray p-2"
                     onClick={handleMenuClick}
                 >
                     <AiOutlineMenu className="fill-gray" size={20} />
