@@ -62,33 +62,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     async function login({ email, password }: LoginRequestType): Promise<LoginResponseType> {
         try {
-            const response = await api.post(
-                '/users/login',
-                { email, password },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
+            const response = await api.post('/users/login', { email, password });
 
-            const { user, session, error, message }: LoginResponseType = response.data;
+            const { user, token, error, message }: LoginResponseType = response.data;
 
-            if (user && session) {
+            if (user && token) {
                 setUserFn(user);
-                nookies.set({}, 'trips_session', session, {
+                nookies.set({}, 'trips_token', token, {
                     // 24 hours
                     maxAge: 60 * 60 * 24,
                     path: '/',
                 });
             }
 
-            return { user, session, error, message };
+            return { user, token: token, error, message };
         } catch (err) {
             if (err instanceof AxiosError && err.response) {
-                const { user, session, error, message }: LoginResponseType = err.response.data;
+                const { user, token, error, message }: LoginResponseType = err.response.data;
 
-                return { user, session, error, message };
+                return { user, token: token, error, message };
             }
         }
 
@@ -107,23 +99,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 }
             );
 
-            const { user, session, error, message }: LoginResponseType = response.data;
+            const { user, token, error, message }: LoginResponseType = response.data;
 
-            if (user && session) {
+            if (user && token) {
                 setUserFn(user);
-                nookies.set({}, 'trips_session', session, {
+                nookies.set({}, 'trips_token', token, {
                     // 24 hours
                     maxAge: 60 * 60 * 24,
                     path: '/',
                 });
             }
 
-            return { user, session, error, message };
+            return { user, token: token, error, message };
         } catch (err) {
             if (err instanceof AxiosError && err.response) {
-                const { user, session, error, message }: LoginResponseType = err.response.data;
+                const { user, token, error, message }: LoginResponseType = err.response.data;
 
-                return { user, session, error, message };
+                return { user, token: token, error, message };
             }
         }
 

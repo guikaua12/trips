@@ -10,7 +10,7 @@ export const metadata = {
 async function verifyAuth(): Promise<boolean> {
     const cookieStore = cookies();
 
-    const session = cookieStore.get('trips_session');
+    const session = cookieStore.get('trips_token');
 
     return !session;
 }

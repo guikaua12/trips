@@ -9,7 +9,7 @@ import Redirect from '@/app/components/Redirect';
 
 async function verifyAuth(): Promise<boolean> {
     const cookieStore = cookies();
-    const session = cookieStore.get('trips_session');
+    const session = cookieStore.get('trips_token');
 
     return !session;
 }
