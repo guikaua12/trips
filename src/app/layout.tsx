@@ -23,7 +23,7 @@ export const metadata = {
     },
 };
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="pt-br">
             <body className={`w-screen h-screen ${poppins.className}`}>
@@ -35,6 +35,4 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
             </body>
         </html>
     );
-};
-
-export default RootLayout;
+}
