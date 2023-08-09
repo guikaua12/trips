@@ -5,6 +5,7 @@ import { api } from '@/services/api';
 import { AxiosError } from 'axios';
 import { User } from '@/types/User';
 import nookies from 'nookies';
+import { verifySession } from '@/services/users';
 
 type LoginRequestType = {
     email: string;
@@ -39,25 +40,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const isLogged = !!user;
 
     useEffect(() => {
-        const verifySession = async (): Promise<void> => {
-            const { trips_session } = nookies.get({});
-
-            if (trips_session) {
-                try {
-                    const response = await api.get(`/session/verify/${trips_session}`);
-
-                    const { user }: SessionVerifyType = response.data;
-
-                    if (user) {
-                        setUserFn(user);
-                    }
-                } finally {
-                    setIsLoading(false);
+        verifySession()
+            .then((data) => {
+                if (data) {
+                    setUserFn(data);
                 }
-            }
-        };
-
-        verifySession().then(() => setIsLoading(false));
+            })
+            .finally(() => setIsLoading(false));
     }, []);
 
     function setUserFn(data: User | null): void {
