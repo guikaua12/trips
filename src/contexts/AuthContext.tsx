@@ -5,6 +5,7 @@ import { api } from '@/services/api';
 import { AxiosError } from 'axios';
 import { User } from '@/types/User';
 import nookies from 'nookies';
+import { useRouter } from 'next/navigation';
 import { verifySession } from '@/services/users';
 
 type LoginRequestType = {
@@ -35,6 +36,7 @@ type AuthContextType = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+    const { push } = useRouter();
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const isLogged = !!user;
@@ -132,6 +134,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
         nookies.destroy({}, 'trips_user', { path: '/' });
         nookies.destroy(null, 'trips_session', { path: '/' });
+        push('/');
     }
 
     return (
