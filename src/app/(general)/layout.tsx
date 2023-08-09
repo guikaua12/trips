@@ -5,14 +5,13 @@ export const metadata = {
     title: 'Home / Trips',
 };
 
-const GeneralLayout = ({ children }: { children: React.ReactNode }) => {
+export default function GeneralLayout({ children }: { children: React.ReactNode }) {
     return (
         <>
             <Header />
             {children}
+
             <Footer />
         </>
     );
-};
-
-export default GeneralLayout;
+}
