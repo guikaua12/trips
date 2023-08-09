@@ -1,15 +1,20 @@
 'use client';
 
-import React, { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { api } from '@/services/api';
 import { useAuth } from '@/hooks/useAuth';
+import { handleDates } from '@/utils/dateUtils';
 
 export default function WithAxios({ children }: { children: ReactNode }) {
     const { logout } = useAuth();
 
     useEffect(() => {
         const id = api.interceptors.response.use(
-            (response) => response,
+            (response) => {
+                handleDates(response.data);
+
+                return response;
+            },
             (error) => {
                 console.log(error);
 
@@ -19,6 +24,7 @@ export default function WithAxios({ children }: { children: ReactNode }) {
                 if (status === 401) {
                     // logout
                     logout();
+
                     console.log('Invalid session, logout.');
                 }
 
