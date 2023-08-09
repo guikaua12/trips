@@ -9,14 +9,16 @@ interface Props {
 
 export default function Trip({ trip }: Props) {
     return (
-        <div className="flex flex-col mb-5 max-w-[300px]">
-            <div className="relative w-full">
+        <div className="flex flex-col mb-5 w-[280px] cursor-pointer" onClick={onClick}>
+            <div className="relative h-[280px] w-full">
                 <Image
                     src={trip.coverImage}
-                    width={300}
-                    height={300}
+                    fill
                     alt="Cover Image"
-                    className="rounded-2xl object-cover w-full h-full"
+                    style={{
+                        objectFit: 'cover',
+                    }}
+                    className="rounded-2xl"
                 />
             </div>
 
