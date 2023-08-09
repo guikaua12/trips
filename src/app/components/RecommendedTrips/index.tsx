@@ -14,9 +14,9 @@ export default function RecommendedTrips({ trips }: RecommendedTripsProps) {
     const { push } = useRouter();
 
     return (
-        <div className="p-4 container m-auto">
-            <SectionTitle className="mb-3 m-auto">Destinos Recomendados</SectionTitle>
-            <div className="flex flex-col items-center sm:flex-row sm:gap-8 sm:justify-center sm:gap-16">
+        <div className="container m-auto p-4">
+            <SectionTitle className="mx-auto mb-3">Destinos Recomendados</SectionTitle>
+            <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-16">
                 {trips.map((trip) => {
                     return (
                         <TripComponent
