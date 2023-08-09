@@ -36,7 +36,7 @@ export default function Header() {
                     <FaUserCircle className="fill-gray" size={20} />
                     {isOpen && (
                         <div
-                            className="absolute rounded-[40px] top-11 left-0 w-full text-purple font-medium text-sm text-center shadow-lg p-2"
+                            className="absolute left-0 top-11 z-50 w-full rounded-[40px] bg-white p-2 text-center text-sm font-medium text-purple shadow-lg"
                             onClick={handleLogoutClick}
                         >
                             Logout
