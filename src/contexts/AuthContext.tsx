@@ -125,7 +125,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     function logout(): void {
         setUser(null);
         nookies.destroy({}, 'trips_user', { path: '/' });
-        nookies.destroy(null, 'trips_session', { path: '/' });
+        nookies.destroy({}, 'trips_token', { path: '/' });
         push('/');
     }
 
