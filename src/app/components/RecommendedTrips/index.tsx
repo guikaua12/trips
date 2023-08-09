@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import SectionTitle from '@/components/SectionTitle';
 import { Trip } from '@/types/Trip';
