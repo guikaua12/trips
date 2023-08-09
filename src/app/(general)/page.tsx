@@ -31,10 +31,10 @@ export default async function Home() {
     const trips = await getData();
 
     return (
-        <>
+        <div className="min-h-[85%] sm:min-h-[90%]">
             <TripSearch />
             <QuickSearch />
             <RecommendedTrips trips={trips} />
-        </>
+        </div>
     );
 }
