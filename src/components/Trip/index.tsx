@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { Trip } from '@/types/Trip';
 import Image from 'next/image';
 import ReactCountryFlag from 'react-country-flag';
 
 interface Props {
     trip: Trip;
+    onClick: MouseEventHandler<HTMLDivElement>;
 }
 
-export default function Trip({ trip }: Props) {
+export default function Trip({ trip, onClick }: Props) {
     return (
         <div className="flex flex-col mb-5 w-[280px] cursor-pointer" onClick={onClick}>
             <div className="relative h-[280px] w-full">
