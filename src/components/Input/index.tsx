@@ -11,20 +11,17 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export default function Input({ className, wrapperClassName, hookFormRegister, error, ...props }: InputProps) {
     return (
         <div className={wrapperClassName}>
-            <div className="w-full">
-                <input
-                    className={twMerge(
-                        'flex border border-lightGray rounded-md focus-within:border-purple focus-within:text-purple outline-none p-2 text-sm text-gray bg-white w-full',
-                        error && 'border-red-500 hover:border-red-500 focus:focus-within:border-red-500',
-                        className
-                    )}
-                    {...props}
-                    {...hookFormRegister}
-                />
-                {error && <FaTriangleExclamation size={20} className="text-red-500"></FaTriangleExclamation>}
+            <div
+                className={twMerge(
+                    'flex w-full rounded-md border border-lightGray bg-white p-2 text-sm text-gray outline-none focus-within:border-purple focus-within:text-purple',
+                    error && 'border-red-500 hover:border-red-500 focus:focus-within:border-red-500'
+                )}
+            >
+                <input className={twMerge('w-full outline-none', className)} {...props} {...hookFormRegister} />
+                {error && <FaTriangleExclamation size={20} className="text-red-500" />}
             </div>
 
-            {error && <span className="text-red-500 text-sm">{error}</span>}
+            {error && <span className="text-sm text-red-500">{error}</span>}
         </div>
     );
 }
