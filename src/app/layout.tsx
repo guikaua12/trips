@@ -26,7 +26,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="pt-br">
-            <body className={`w-screen h-screen ${poppins.className}`}>
+            <body className={`h-screen w-screen ${poppins.className}`}>
                 <Suspense fallback={<FullScreenLoading />}>
                     <AuthProvider>
                         <WithAxios>{children}</WithAxios>
