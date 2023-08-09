@@ -1,5 +1,6 @@
 import { api } from '@/services/api';
 import { Trip } from '@/types/Trip';
+import { handleDates } from '@/utils/dateUtils';
 
 export type TripSearchType = {
     location?: string;
@@ -23,5 +24,15 @@ export async function searchTrip({ location, startDate, budget, recommended }: T
         return response.data;
     } catch (err) {
         return [];
+    }
+}
+
+export async function getTrip(id: string): Promise<Trip | null> {
+    try {
+        const response = await api.get(`/trips/${id}`);
+        handleDates(response.data);
+        return response.data;
+    } catch (err) {
+        return null;
     }
 }
