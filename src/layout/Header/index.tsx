@@ -44,7 +44,7 @@ export default function Header() {
                     )}
                 </div>
             ) : (
-                <Link className="text-purple font-medium text-sm" href="/auth/login">
+                <Link className="text-sm font-medium text-purple" href="/auth/login">
                     Login
                 </Link>
             )}
