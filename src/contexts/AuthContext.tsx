@@ -16,13 +16,7 @@ type LoginResponseType = {
         id: string;
         email: string;
     };
-    session?: string;
-    error?: boolean;
-    message?: string;
-};
-
-type SessionVerifyType = {
-    user?: User;
+    token?: string;
     error?: boolean;
     message?: string;
 };
