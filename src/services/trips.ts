@@ -1,12 +1,31 @@
 import { api } from '@/services/api';
 import { Trip } from '@/types/Trip';
 import { handleDates } from '@/utils/dateUtils';
+import { z } from 'zod';
+import { preprocessUndefined } from '@/utils/zodUtils';
+import { AxiosError } from 'axios';
 
-export type TripSearchType = {
-    location?: string;
-    startDate?: Date;
-    budget?: number;
-    recommended?: boolean;
+export const TripSearchSchema = z
+    .object({
+        location: z.preprocess(preprocessUndefined, z.string().optional()),
+        startDate: z.union([z.date().min(new Date(), 'Data inicial inválida.'), z.null(), z.undefined()]),
+        pricePerDay: z.union([z.number().positive('O valor mínimo é de R$1,00'), z.nan()]),
+        recommended: z.boolean(),
+    })
+    .partial()
+    .superRefine((data, ctx) => {
+        // at least one field
+        if (Object.values(data).some((value) => !!value)) return;
+
+        ctx.addIssue({ code: 'custom', path: ['location'], message: 'Pelo menos um dos campos deve ser preenchido' });
+    });
+
+export type TripSearchSchemaType = z.infer<typeof TripSearchSchema>;
+
+type TripSearchResponseType = {
+    trips?: Trip[];
+    error?: boolean;
+    message?: string;
 };
 export async function searchTrip({ location, startDate, budget, recommended }: TripSearchType): Promise<Trip[]> {
     try {
