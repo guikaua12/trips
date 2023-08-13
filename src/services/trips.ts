@@ -27,7 +27,11 @@ type TripSearchResponseType = {
     error?: boolean;
     message?: string;
 };
-export async function searchTrip({ location, startDate, budget, recommended }: TripSearchType): Promise<Trip[]> {
+export async function searchTrip({
+    location,
+    startDate,
+    pricePerDay,
+    recommended,
 }: TripSearchSchemaType): Promise<TripSearchResponseType> {
     try {
         const response = await api.get('/trips/search', {
@@ -38,9 +42,11 @@ export async function searchTrip({ location, startDate, budget, recommended }: T
                 recommended: recommended,
             },
         });
+
+        handleDates(response.data);
+
         return response.data;
     } catch (err) {
-        return [];
         if (err instanceof AxiosError && err.response) {
             return err.response.data;
         }
