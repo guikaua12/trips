@@ -11,22 +11,12 @@ interface RecommendedTripsProps {
 }
 
 export default function RecommendedTrips({ trips }: RecommendedTripsProps) {
-    const { push } = useRouter();
-
     return (
         <div className="container m-auto p-4">
             <SectionTitle className="mx-auto mb-3">Destinos Recomendados</SectionTitle>
             <div className="flex flex-col items-center justify-center sm:flex-row sm:gap-16">
                 {trips.map((trip) => {
-                    return (
-                        <TripComponent
-                            key={trip.id}
-                            trip={trip}
-                            onClick={() => {
-                                push(`/trips/${trip.id}`);
-                            }}
-                        />
-                    );
+                    return <TripComponent key={trip.id} trip={trip} href={`/trips/${trip.id}`} />;
                 })}
             </div>
         </div>
