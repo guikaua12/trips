@@ -13,15 +13,15 @@ export default function Input({ className, wrapperClassName, hookFormRegister, e
         <div className={wrapperClassName}>
             <div
                 className={twMerge(
-                    'flex w-full rounded-md border border-lightGray bg-white p-2 text-sm text-gray outline-none focus-within:border-purple focus-within:text-purple',
-                    error && 'border-red-500 hover:border-red-500 focus:focus-within:border-red-500'
+                    'flex w-full rounded-md bg-white p-2 text-sm text-gray outline outline-1 outline-lightGray focus-within:text-purple focus-within:outline-purple',
+                    error && 'outline-red-500 focus-within:outline-red-500 hover:outline-red-500'
                 )}
             >
                 <input className={twMerge('w-full outline-none', className)} {...props} {...hookFormRegister} />
-                {error && <FaTriangleExclamation size={20} className="text-red-500" />}
+                {/*{error && <FaTriangleExclamation className="min-h-[20px] min-w-[20px] text-red-500" />}*/}
             </div>
 
-            {error && <span className="text-sm text-red-500">{error}</span>}
+            {error && <span className="text-xs text-red-500">{error}</span>}
         </div>
     );
 }
