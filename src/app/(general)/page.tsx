@@ -9,11 +9,10 @@ export default async function Home() {
     const response = await searchTrip({ recommended: true });
 
     return (
-        <div className="min-h-[85%] sm:min-h-[90%]">
+        <>
             <TripSearch />
             <QuickSearch />
-            <RecommendedTrips trips={trips} />
-        </div>
             <RecommendedTrips trips={response.trips || []} />
+        </>
     );
 }
