@@ -62,3 +62,10 @@ export async function getTrip(id: string): Promise<Trip | null> {
         return null;
     }
 }
+
+export type TripSearchQueryParams = {
+    location?: string;
+    startDate?: string;
+    pricePerDay?: string;
+    recommended?: string;
+};
