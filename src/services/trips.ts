@@ -34,13 +34,11 @@ export async function searchTrip({
     recommended,
 }: TripSearchSchemaType): Promise<TripSearchResponseType> {
     try {
-        const response = await api.get('/trips/search', {
-            data: {
-                location: location,
-                startDate: startDate,
-                budget: budget,
-                recommended: recommended,
-            },
+        const response = await api.post('/trips/search', {
+            location: location,
+            startDate: startDate,
+            pricePerDay: pricePerDay,
+            recommended: recommended,
         });
 
         handleDates(response.data);
