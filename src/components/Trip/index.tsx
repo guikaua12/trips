@@ -1,14 +1,16 @@
-import React, { MouseEventHandler } from 'react';
+'use client';
+
 import { Trip } from '@/types/Trip';
 import Image from 'next/image';
 import ReactCountryFlag from 'react-country-flag';
+import Link from 'next/link';
 
 interface Props {
     trip: Trip;
-    onClick: MouseEventHandler<HTMLDivElement>;
+    href?: string;
 }
 
-export default function Trip({ trip, onClick }: Props) {
+export default function Trip({ trip, href }: Props) {
     return (
         <div className="flex flex-col mb-5 w-[280px] cursor-pointer" onClick={onClick}>
             <div className="relative h-[280px] w-full">
@@ -22,6 +24,7 @@ export default function Trip({ trip, onClick }: Props) {
                     className="rounded-2xl"
                 />
             </div>
+        <Link href={href || '#'}>
 
             <div className="flex flex-col mt-2">
                 <h1 className="text-sm font-medium text-darkPurple mb-1">{trip.name}</h1>
@@ -35,5 +38,6 @@ export default function Trip({ trip, onClick }: Props) {
                 </div>
             </div>
         </div>
+        </Link>
     );
 }
