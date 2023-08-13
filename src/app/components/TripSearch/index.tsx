@@ -31,23 +31,21 @@ export default function TripSearch() {
     }
 
     return (
-        <div className="flex flex-col gap-3 p-4 bg-worldMap bg-no-repeat bg-cover items-center justify-center sm:h-[425px] bg-zinc-100">
-            <h1 className="font-semibold text-xl">
+        <div className="flex flex-col items-center justify-center gap-3 bg-zinc-100 bg-worldMap bg-cover bg-no-repeat p-4 sm:h-[425px]">
+            <h1 className="text-xl font-semibold">
                 Encontre sua próxima <span className="text-purple">viagem!</span>
             </h1>
 
             <form
                 action="#"
-                className="grid grid-cols-2 grid-rows-3 justify-center items-center gap-3 w-full sm:bg-lightPurple sm:p-4 sm:max-w-[938px] sm:rounded-lg sm:grid-cols-4 sm:grid-rows-1"
-                onSubmit={handleSubmit}
+                className="grid w-full grid-cols-2 grid-rows-3 items-center justify-center gap-3 sm:max-w-[938px] sm:grid-cols-4 sm:grid-rows-1 sm:rounded-lg sm:bg-lightPurple sm:p-4"
                 onSubmit={handleSubmit(handleSubmitClick)}
             >
                 <Input
                     type="text"
                     name="location"
                     placeholder="Onde você quer ir?"
-                    onChange={handleChange}
-                    wrapperClassName="col-span-2 sm:col-span-1"
+                    wrapperClassName="col-span-2 sm:col-span-1 w-full"
                     hookFormRegister={register('location')}
                     error={errors.location?.message}
                 />
@@ -78,7 +76,7 @@ export default function TripSearch() {
                     error={errors.pricePerDay?.message}
                 />
 
-                <Button className="w-full col-span-2 sm:col-span-1">Pesquisar</Button>
+                <Button className="col-span-2 w-full sm:col-span-1">Pesquisar</Button>
             </form>
         </div>
     );
