@@ -20,8 +20,8 @@ export default function Input(
     ref: LegacyRef<HTMLInputElement> | undefined
 ) {
     const inputClassName = twMerge(
-        'flex border w-full border-lightGray rounded-md focus-within:border-purple focus-within:text-purple outline-none p-2 text-sm text-gray',
-        error && 'border-red-500 hover:border-red-500 focus:focus-within:border-red-500',
+        'flex w-full outline outline-1 outline-lightGray rounded-md focus-within:outline-purple focus-within:text-purple p-2 text-sm text-gray',
+        error && 'outline-red-500 hover:outline-red-500 focus-within:outline-red-500',
         className
     );
     const inputWrapperClassName = twMerge('flex flex-col', wrapperClassName);
@@ -35,7 +35,7 @@ export default function Input(
                 className={inputClassName}
                 {...props}
             />
-            {error && errorMessage && <div className="mt-1 text-xs text-red-500">{errorMessage}</div>}
+            {error && errorMessage && <div className="text-xs text-red-500">{errorMessage}</div>}
         </div>
     );
 }
