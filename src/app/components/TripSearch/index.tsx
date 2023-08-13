@@ -5,27 +5,29 @@ import Input from '@/components/Input';
 import CurrencyInput from '@/components/CurrencyInput';
 import DatePicker from '@/components/DatePicker';
 import Button from '@/components/Button';
-import { searchTrip, TripSearchType } from '@/services/trips';
+import { TripSearchSchema, TripSearchSchemaType } from '@/services/trips';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { objectToQueryParams } from '@/utils/urlUtils';
+import { addDays } from 'date-fns';
 
 export default function TripSearch() {
-    const [tripSearch, setTripSearch] = useState<TripSearchType>({
-        startDate: new Date(),
+    const { push } = useRouter();
+
+    const {
+        handleSubmit,
+        register,
+        control,
+        formState: { errors },
+    } = useForm<TripSearchSchemaType>({
+        resolver: zodResolver(TripSearchSchema),
     });
 
-    function handleDateChange(date: Date) {
-        setTripSearch(({ ...prevState }) => ({ ...prevState, startDate: date }));
-    }
+    console.log(errors);
 
-    function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        setTripSearch(({ ...prevState }) => ({ ...prevState, [e.target.name]: e.target.value }));
-    }
-
-    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        console.log(tripSearch);
-
-        const trips = await searchTrip({});
-        console.log(trips);
+    async function handleSubmitClick({ location, startDate, pricePerDay }: TripSearchSchemaType) {
+        push('/trips' + objectToQueryParams({ location, startDate, pricePerDay }));
     }
 
     return (
@@ -38,6 +40,7 @@ export default function TripSearch() {
                 action="#"
                 className="grid grid-cols-2 grid-rows-3 justify-center items-center gap-3 w-full sm:bg-lightPurple sm:p-4 sm:max-w-[938px] sm:rounded-lg sm:grid-cols-4 sm:grid-rows-1"
                 onSubmit={handleSubmit}
+                onSubmit={handleSubmit(handleSubmitClick)}
             >
                 <Input
                     type="text"
@@ -45,19 +48,34 @@ export default function TripSearch() {
                     placeholder="Onde você quer ir?"
                     onChange={handleChange}
                     wrapperClassName="col-span-2 sm:col-span-1"
+                    hookFormRegister={register('location')}
+                    error={errors.location?.message}
                 />
-                <DatePicker
-                    selected={tripSearch.startDate}
-                    onChange={handleDateChange}
-                    className="w-full h-full"
-                    placeholderText="Primeira data"
-                    wrapperClassName="col-span-1 sm:col-span-1"
+
+                <Controller
+                    name="startDate"
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <DatePicker
+                            selected={value}
+                            onChange={onChange}
+                            onBlur={onBlur}
+                            className="w-full"
+                            placeholderText="Primeira data"
+                            wrapperClassName="col-span-1"
+                            error={!!errors.startDate?.message}
+                            errorMessage={errors.startDate?.message}
+                            minDate={addDays(new Date(), 1)}
+                        />
+                    )}
                 />
+
                 <CurrencyInput
-                    name="budget"
-                    placeholder="Orçamento"
-                    onChange={handleChange}
-                    wrapperClassName="w-full h-full sm:col-span-1"
+                    name="pricePerDay"
+                    placeholder="Preço por dia"
+                    wrapperClassName="w-full sm:col-span-1"
+                    hookFormRegister={register('pricePerDay', { valueAsNumber: true })}
+                    error={errors.pricePerDay?.message}
                 />
 
                 <Button className="w-full col-span-2 sm:col-span-1">Pesquisar</Button>
