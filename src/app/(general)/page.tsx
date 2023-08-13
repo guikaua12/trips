@@ -1,34 +1,12 @@
 import TripSearch from '@/app/components/TripSearch';
 import QuickSearch from '@/app/components/QuickSearch';
-import { Trip } from '@/types/Trip';
 import RecommendedTrips from '@/app/components/RecommendedTrips';
-import { api } from '@/services/api';
-
-interface HomeProps {
-    trips: Trip[];
-}
-
-async function getData(): Promise<Trip[]> {
-    try {
-        const response = await api.get('/trips/search', {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            data: {
-                recommended: true,
-            },
-        });
-
-        return response.data;
-    } catch (err) {
-        return [];
-    }
-}
+import { searchTrip } from '@/services/trips';
 
 const delay = (ms: number = 750) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default async function Home() {
-    const trips = await getData();
+    const response = await searchTrip({ recommended: true });
 
     return (
         <div className="min-h-[85%] sm:min-h-[90%]">
@@ -36,5 +14,6 @@ export default async function Home() {
             <QuickSearch />
             <RecommendedTrips trips={trips} />
         </div>
+            <RecommendedTrips trips={response.trips || []} />
     );
 }
