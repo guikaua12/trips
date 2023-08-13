@@ -15,10 +15,7 @@ interface InputProps extends ReactDatePickerProps {
     wrapperClassName?: string;
 }
 
-export default function Input(
-    { className, wrapperClassName, error, errorMessage, ...props }: InputProps,
-    ref: LegacyRef<HTMLInputElement> | undefined
-) {
+export default function Input({ className, wrapperClassName, error, errorMessage, ...props }: InputProps) {
     const inputClassName = twMerge(
         'flex w-full outline outline-1 outline-lightGray rounded-md focus-within:outline-purple focus-within:text-purple p-2 text-sm text-gray',
         error && 'outline-red-500 hover:outline-red-500 focus-within:outline-red-500',
