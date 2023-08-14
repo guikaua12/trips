@@ -10,5 +10,5 @@ export function objectToQueryParams(obj: object): string {
         })
         .join('&');
 
-    return queryParams ? `?${queryParams}` : 'empty';
+    return queryParams ? `?${queryParams}` : '';
 }
