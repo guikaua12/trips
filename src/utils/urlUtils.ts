@@ -1,5 +1,4 @@
 export function objectToQueryParams(obj: object): string {
-    console.log('debg1');
     const queryParams = Object.entries(obj)
         .filter(([, value]) => !!value)
         .map(([key, value]) => {
