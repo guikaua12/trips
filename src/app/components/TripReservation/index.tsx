@@ -8,6 +8,7 @@ import Button from '@/components/Button';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { differenceInDays, addDays, subDays, isAfter, isBefore, isEqual } from 'date-fns';
+import reservateTrip from '@/services/trips';
 
 type TripReservationProps = {
     trip: Trip;
@@ -20,7 +21,6 @@ function isValidDates(startDate: Date, endDate: Date): boolean {
 }
 
 export default function TripReservation({ trip }: TripReservationProps) {
-    // @ts-ignore
     const TripReservationSchema = z.object({
         startDate: z.date(),
         endDate: z.date(),
@@ -41,15 +41,29 @@ export default function TripReservation({ trip }: TripReservationProps) {
         handleSubmit,
         control,
         watch,
+        setError,
     } = useForm<TripReservationSchemaType>({
         resolver: zodResolver(TripReservationSchema),
     });
 
     const currentStartDate = watch('startDate');
     const currentEndDate = watch('endDate');
+    const totalPrice = trip.pricePerDay * differenceInDays(currentEndDate, currentStartDate);
 
-    function handleSubmitClick(data: TripReservationSchemaType) {
-        console.log(data);
+    async function handleSubmitClick({ startDate, endDate, guests }: TripReservationSchemaType) {
+        const response = await reservateTrip({
+            tripId: trip.id,
+            startDate,
+            endDate,
+            totalPaid: totalPrice,
+            guests,
+        });
+
+        if (response.error) {
+            setError('startDate', { type: 'custom', message: response.message });
+        }
+
+        console.log(response);
     }
 
     return (
