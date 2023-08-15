@@ -18,8 +18,6 @@ export default async function TripSearchPage({ searchParams }: Props) {
 
     const { trips, error, message } = await searchTrip(parsed);
 
-    console.log(trips, error, message);
-
     return (
         <div className="flex flex-col items-center p-4">
             {!!trips?.length && (

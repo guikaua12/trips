@@ -24,8 +24,6 @@ export default function TripSearch() {
         resolver: zodResolver(TripSearchSchema),
     });
 
-    console.log(errors);
-
     async function handleSubmitClick({ location, startDate, pricePerDay }: TripSearchSchemaType) {
         push('/trips' + objectToQueryParams({ location, startDate, pricePerDay }));
     }
