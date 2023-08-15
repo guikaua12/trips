@@ -120,9 +120,7 @@ export default function TripReservation({ trip }: TripReservationProps) {
                             : 'Total:'}
                     </span>
                     <span>
-                        {isValidDates(currentStartDate, currentEndDate)
-                            ? `R$ ${(trip.pricePerDay * differenceInDays(currentEndDate, currentStartDate)).toFixed(2)}`
-                            : 'R$0.00'}
+                        {isValidDates(currentStartDate, currentEndDate) ? `R$ ${totalPrice.toFixed(2)}` : 'R$0.00'}
                     </span>
                 </div>
                 <Button className="col-span-2">Reservar agora</Button>
