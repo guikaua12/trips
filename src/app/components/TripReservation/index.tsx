@@ -84,6 +84,7 @@ export default function TripReservation({ trip }: TripReservationProps) {
                             selected={value}
                             placeholderText="Data de inicio"
                             error={!!errors.startDate?.message}
+                            errorMessage={errors.startDate?.message}
                             minDate={trip.startDate}
                             maxDate={currentEndDate ? subDays(currentEndDate, 1) : trip.endDate}
                         />
@@ -100,6 +101,7 @@ export default function TripReservation({ trip }: TripReservationProps) {
                             selected={value}
                             placeholderText="Data final"
                             error={!!errors.endDate?.message}
+                            errorMessage={errors.endDate?.message}
                             minDate={currentStartDate ? addDays(currentStartDate, 1) : trip.startDate}
                             maxDate={trip.endDate}
                         />
