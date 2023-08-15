@@ -40,6 +40,12 @@ export default function Header() {
                             onClick={handleLogoutClick}
                         >
                             Logout
+                        <div className="absolute right-0 top-11 z-50 w-[150px] rounded-md bg-white text-center text-sm font-medium text-purple shadow-lg outline outline-1 outline-lightGray">
+                            <ul className="divide-y divide-lightGray text-start [&>li:hover]:bg-zinc-100 [&>li]:px-3 [&>li]:py-2">
+                                <li>
+                                    <button onClick={handleLogoutClick}>Sair</button>
+                                </li>
+                            </ul>
                         </div>
                     )}
                 </div>
