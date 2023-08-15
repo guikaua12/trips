@@ -13,7 +13,7 @@ interface Props {
 export default function Trip({ trip, href }: Props) {
     return (
         <Link href={href || '#'}>
-            <div className="mb-5 flex w-[280px] cursor-pointer flex-col">
+            <div className="mb-5 flex w-[280px] flex-col">
                 <div className="relative h-[280px] w-full">
                     <Image
                         src={trip.coverImage}
