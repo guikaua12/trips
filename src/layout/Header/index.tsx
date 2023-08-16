@@ -32,8 +32,10 @@ export default function Header() {
                     className="relative flex cursor-pointer gap-4 rounded-[40px] border border-lightGray p-2"
                     onClick={handleMenuClick}
                 >
-                    <AiOutlineMenu className="fill-gray" size={20} />
-                    <FaUserCircle className="fill-gray" size={20} />
+                    <div className="flex gap-4">
+                        <AiOutlineMenu className="fill-gray" size={20} />
+                        <FaUserCircle className="fill-gray" size={20} />
+                    </div>
                     {isOpen && (
                         <div
                             className="absolute left-0 top-11 z-50 w-full rounded-[40px] bg-white p-2 text-center text-sm font-medium text-purple shadow-lg"
