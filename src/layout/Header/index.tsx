@@ -6,18 +6,18 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { FaUserCircle } from 'react-icons/fa';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
+import OutsideClickDetector from '@/hooks/useOutsideClick';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const { isLogged, logout } = useAuth();
 
-    function handleMenuClick() {
-        setIsOpen((prevState) => !prevState);
-    }
+    const handleMenuClick = () => setIsOpen((prevState) => !prevState);
 
-    function handleLogoutClick() {
-        logout();
-    }
+    const handleOutsideClick = () => setIsOpen(false);
+
+    const handleLogoutClick = () => logout();
+    function handleMyTripsClick() {}
 
     return (
         <div className="container m-auto flex items-center justify-between p-5">
@@ -37,18 +37,18 @@ export default function Header() {
                         <FaUserCircle className="fill-gray" size={20} />
                     </div>
                     {isOpen && (
-                        <div
-                            className="absolute left-0 top-11 z-50 w-full rounded-[40px] bg-white p-2 text-center text-sm font-medium text-purple shadow-lg"
-                            onClick={handleLogoutClick}
-                        >
-                            Logout
-                        <div className="absolute right-0 top-11 z-50 w-[150px] rounded-md bg-white text-center text-sm font-medium text-purple shadow-lg outline outline-1 outline-lightGray">
-                            <ul className="divide-y divide-lightGray text-start [&>li:hover]:bg-zinc-100 [&>li]:px-3 [&>li]:py-2">
-                                <li>
-                                    <button onClick={handleLogoutClick}>Sair</button>
-                                </li>
-                            </ul>
-                        </div>
+                        <OutsideClickDetector callback={handleOutsideClick}>
+                            <div className="absolute right-0 top-11 z-50 w-[150px] rounded-md bg-white text-center text-sm font-medium text-purple shadow-lg outline outline-1 outline-lightGray">
+                                <ul className="divide-y divide-lightGray text-start [&>li:hover]:bg-zinc-100 [&>li]:px-3 [&>li]:py-2">
+                                    <li>
+                                        <button onClick={handleMyTripsClick}>Minhas viagens</button>
+                                    </li>
+                                    <li>
+                                        <button onClick={handleLogoutClick}>Sair</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </OutsideClickDetector>
                     )}
                 </div>
             ) : (
