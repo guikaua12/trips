@@ -29,7 +29,7 @@ export default function Header() {
 
             {isLogged ? (
                 <div
-                    className="relative flex cursor-pointer gap-4 rounded-[40px] border border-lightGray p-2"
+                    className="relative cursor-pointer rounded-[40px] border border-lightGray p-2"
                     onClick={handleMenuClick}
                 >
                     <div className="flex gap-4">
