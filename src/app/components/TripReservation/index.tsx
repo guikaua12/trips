@@ -7,18 +7,13 @@ import { Controller, useForm } from 'react-hook-form';
 import Button from '@/components/Button';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { differenceInDays, addDays, subDays, isAfter, isBefore, isEqual } from 'date-fns';
-import reservateTrip from '@/services/trips';
+import { addDays, differenceInDays, subDays } from 'date-fns';
+import { reservateTrip } from '@/services/tripResevations';
+import TotalPrice from '@/app/components/TotalPrice';
 
 type TripReservationProps = {
     trip: Trip;
 };
-
-function isValidDates(startDate: Date, endDate: Date): boolean {
-    if (!startDate || !endDate) return false;
-
-    return differenceInDays(endDate, startDate) > 0;
-}
 
 export default function TripReservation({ trip }: TripReservationProps) {
     const TripReservationSchema = z.object({
@@ -113,16 +108,9 @@ export default function TripReservation({ trip }: TripReservationProps) {
                     hookFormRegister={register('guests', { valueAsNumber: true })}
                     error={errors.guests?.message}
                 />
-                <div className="col-span-2 flex w-full justify-between text-sm font-semibold text-darkPurple">
-                    <span>
-                        {isValidDates(currentStartDate, currentEndDate)
-                            ? `Total (${differenceInDays(currentEndDate, currentStartDate)} noites):`
-                            : 'Total:'}
-                    </span>
-                    <span>
-                        {isValidDates(currentStartDate, currentEndDate) ? `R$ ${totalPrice.toFixed(2)}` : 'R$0.00'}
-                    </span>
-                </div>
+
+                <TotalPrice pricePerDay={trip.pricePerDay} startDate={currentStartDate} endDate={currentEndDate} />
+
                 <Button className="col-span-2">Reservar agora</Button>
             </form>
         </div>
