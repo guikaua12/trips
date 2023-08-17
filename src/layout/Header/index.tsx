@@ -22,7 +22,7 @@ export default function Header() {
     const handleMyTripsClick = () => push('/client/orders');
 
     return (
-        <div className="container m-auto flex items-center justify-between p-5">
+        <header className="container m-auto flex items-center justify-between border-b border-lightGray p-5">
             <Link href="/">
                 <div className="relative h-[30px] w-[80px]">
                     <Image src="/logo.png" alt="Logo" fill className="object-contain" />
@@ -58,6 +58,6 @@ export default function Header() {
                     Login
                 </Link>
             )}
-        </div>
+        </header>
     );
 }
