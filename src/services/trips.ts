@@ -4,7 +4,6 @@ import { handleDates } from '@/utils/dateUtils';
 import { z } from 'zod';
 import { preprocessUndefined } from '@/utils/zodUtils';
 import { AxiosError } from 'axios';
-import { TripReservation } from '@/types/TripReservation';
 
 export const TripSearchSchema = z
     .object({
@@ -70,49 +69,3 @@ export type TripSearchQueryParams = {
     pricePerDay?: string;
     recommended?: string;
 };
-
-const TripReservationSchema = z.object({
-    tripId: z.string(),
-    startDate: z.date(),
-    endDate: z.date(),
-    totalPaid: z.number(),
-    guests: z
-        .number({
-            required_error: 'O número de hóspedes é obrigatório',
-            invalid_type_error: 'O número de hóspedes é obrigatório',
-        })
-        .min(1, 'O número de hóspedes deve ser maior que 1'),
-});
-
-type TripReservationSchemaType = z.infer<typeof TripReservationSchema>;
-
-type TripReservationResponseType = {
-    tripReservation?: TripReservation;
-    error?: boolean;
-    message?: string;
-};
-
-export default async function reservateTrip({
-    tripId,
-    startDate,
-    endDate,
-    totalPaid,
-    guests,
-}: TripReservationSchemaType): Promise<TripReservationResponseType> {
-    try {
-        const response = await api.post('/tripReservations/reserve', {
-            tripId,
-            startDate,
-            endDate,
-            totalPaid,
-            guests,
-        });
-        return response.data;
-    } catch (err) {
-        if (err instanceof AxiosError && err.response) {
-            return err.response.data;
-        }
-
-        return {};
-    }
-}
