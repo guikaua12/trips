@@ -1,16 +1,16 @@
 import React, { ButtonHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export enum ButtonVariants {
-    Primary = 'bg-purple text-white outline-none disabled:bg-darkPurple font-medium',
-    Secondary = 'bg-transparent text-purple outline outline-1 font-semibold',
-}
+type ButtonVariants = {
+    primary: 'bg-purple text-white outline-none disabled:bg-darkPurple font-medium';
+    secondary: 'bg-transparent text-purple outline outline-1 font-semibold';
+};
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: ButtonVariants;
+    variant?: keyof ButtonVariants;
 }
 
-export default function Button({ className, children, variant = ButtonVariants.Primary, ...props }: ButtonProps) {
+export default function Button({ className, children, variant = 'primary', ...props }: ButtonProps) {
     return (
         <button
             className={twMerge('flex justify-center rounded-md p-2 text-center text-sm', variant, className)}
