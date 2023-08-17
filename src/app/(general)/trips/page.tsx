@@ -9,6 +9,10 @@ type Props = {
     searchParams: TripSearchQueryParams;
 };
 
+export const metadata = {
+    title: 'Busca / Trips',
+};
+
 export default async function TripSearchPage({ searchParams }: Props) {
     const parsed: TripSearchSchemaType = {
         location: searchParams.location,
