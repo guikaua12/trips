@@ -7,17 +7,19 @@ import { FaUserCircle } from 'react-icons/fa';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import OutsideClickDetector from '@/hooks/useOutsideClick';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const { isLogged, logout } = useAuth();
+    const { push } = useRouter();
 
     const handleMenuClick = () => setIsOpen((prevState) => !prevState);
 
     const handleOutsideClick = () => setIsOpen(false);
 
     const handleLogoutClick = () => logout();
-    function handleMyTripsClick() {}
+    const handleMyTripsClick = () => push('/client/orders');
 
     return (
         <div className="container m-auto flex items-center justify-between p-5">
