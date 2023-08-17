@@ -7,7 +7,7 @@ module.exports = {
                 gray: '#717171',
                 lightGray: '#BBBFBF',
                 purple: '#590BD8',
-                darkPurple: '#312A4F',
+                darkPurple: '#403769',
                 lightPurple: '#DDD5EA',
             },
             backgroundImage: {
