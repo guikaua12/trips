@@ -7,7 +7,7 @@ import Separator from '@/components/Separator';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import TotalPrice from '@/app/components/TotalPrice';
-import Button, { ButtonVariants } from '@/components/Button';
+import Button from '@/components/Button';
 
 type MyTripProps = {
     tripReservation: TripReservation;
@@ -48,7 +48,7 @@ export default function MyTrip({ tripReservation: { id, trip, userId, startDate,
                 rightClassName="font-semibold"
             />
 
-            <Button variant={ButtonVariants.Secondary} className="text-red-600 outline-red-600">
+            <Button variant="outline" className="text-red-600 outline-red-600">
                 Cancelar
             </Button>
         </Card>
