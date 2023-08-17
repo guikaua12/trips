@@ -2,12 +2,12 @@ import React from 'react';
 import { getTrip } from '@/services/trips';
 import Redirect from '@/app/components/Redirect';
 import Image from 'next/image';
-import ReactCountryFlag from 'react-country-flag';
 import { verifySession } from '@/services/users';
 import { cookies } from 'next/headers';
 import TripReservation from '@/app/components/TripReservation';
 import Separator from '@/components/Separator';
 import { FaRegCircleCheck } from 'react-icons/fa6';
+import LocationWithFlag from '@/app/components/LocationWithFlag';
 
 type TripDetailsProps = {
     params: { id: string };
@@ -29,10 +29,7 @@ export default async function TripDetailsPage({ params: { id } }: TripDetailsPro
             <div className="p-5">
                 <h1 className="text-xl font-semibold text-darkPurple">{trip.name}</h1>
 
-                <div className="mb-1 flex gap-1">
-                    <ReactCountryFlag countryCode={trip.countryCode} svg />
-                    <span className="text-xs font-medium text-gray underline">{trip.location}</span>
-                </div>
+                <LocationWithFlag countryCode={trip.countryCode} location={trip.location} />
 
                 <TripReservation trip={trip} />
 
