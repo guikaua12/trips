@@ -1,6 +1,6 @@
 'use client';
 import DatePicker from '@/components/DatePicker';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Trip } from '@/types/Trip';
 import Input from '@/components/Input';
 import { Controller, useForm } from 'react-hook-form';
@@ -10,12 +10,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { addDays, differenceInDays, subDays } from 'date-fns';
 import { reservateTrip } from '@/services/tripResevations';
 import TotalPrice from '@/app/components/TotalPrice';
+import { toast, TypeOptions } from 'react-toastify';
 
 type TripReservationProps = {
     trip: Trip;
 };
 
 export default function TripReservation({ trip }: TripReservationProps) {
+    const alert = useCallback((message: string, type: TypeOptions) => toast(message, { type: type }), []);
+
     const TripReservationSchema = z.object({
         startDate: z.date(),
         endDate: z.date(),
@@ -54,11 +57,13 @@ export default function TripReservation({ trip }: TripReservationProps) {
             guests,
         });
 
-        if (response.error) {
+        if (response.error && response.message) {
+            alert(response.message, 'error');
             setError('startDate', { type: 'custom', message: response.message });
+            return;
         }
 
-        console.log(response);
+        alert('Viagem reservada com sucesso!', 'success');
     }
 
     return (

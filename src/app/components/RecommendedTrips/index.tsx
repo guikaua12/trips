@@ -1,10 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import SectionTitle from '@/components/SectionTitle';
 import { Trip } from '@/types/Trip';
 import TripComponent from '@/components/Trip';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import Button from '@/components/Button';
 
 interface RecommendedTripsProps {
     trips: Trip[];

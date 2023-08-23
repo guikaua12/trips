@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import MyTrip from '@/components/MyTrip';
 import { TripReservation } from '@/types/TripReservation';
 import { cancelTripReservation, getAllTripReservations } from '@/services/tripResevations';
+import { toast, TypeOptions } from 'react-toastify';
 
 type MyTripsWrapperProps = {
     defaultTripReservations?: TripReservation[] | undefined;
@@ -11,6 +12,7 @@ type MyTripsWrapperProps = {
 
 export default function MyTripsWrapper({ defaultTripReservations }: MyTripsWrapperProps) {
     const [tripReservations, setTripReservations] = useState<TripReservation[]>(defaultTripReservations || []);
+    const alert = useCallback((message: string, type: TypeOptions) => toast(message, { type: type }), []);
 
     const fetchTripReservations = async () => {
         const response = await getAllTripReservations();
@@ -21,14 +23,15 @@ export default function MyTripsWrapper({ defaultTripReservations }: MyTripsWrapp
     };
 
     const handleCancelClick = async ({ id }: TripReservation) => {
-        console.log('cancel');
-
         const response = await cancelTripReservation(id);
-        console.log(response);
 
-        if (response.tripReservation) {
-            await fetchTripReservations();
+        if (response.error) {
+            alert(response.message!, 'error');
+            return;
         }
+
+        alert('Viagem cancelada com sucesso!', 'success');
+        await fetchTripReservations();
     };
 
     return (

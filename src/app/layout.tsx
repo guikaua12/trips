@@ -4,6 +4,8 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import WithAxios from '@/components/WithAxios';
 import { ReactNode, Suspense } from 'react';
 import FullScreenLoading from '@/components/FullScreenLoading';
+import { ToastContainer } from 'react-toastify';
+import ToastProvider from '@/contexts/ToastProvider';
 
 const poppins = Poppins({
     subsets: ['latin'],
@@ -27,11 +29,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="pt-br">
             <body className={`h-screen w-screen ${poppins.className}`}>
-                <Suspense fallback={<FullScreenLoading />}>
-                    <AuthProvider>
-                        <WithAxios>{children}</WithAxios>
-                    </AuthProvider>
-                </Suspense>
+                <ToastProvider>
+                    <Suspense fallback={<FullScreenLoading />}>
+                        <AuthProvider>
+                            <WithAxios>{children}</WithAxios>
+                        </AuthProvider>
+                    </Suspense>
+                </ToastProvider>
             </body>
         </html>
     );
