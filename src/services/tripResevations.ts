@@ -77,3 +77,23 @@ export async function getAllTripReservations(token?: string): Promise<GetAllTrip
         return {};
     }
 }
+
+type CancelTripReservationResponseType = {
+    tripReservation?: TripReservation;
+    error?: boolean;
+    message?: string;
+};
+
+export async function cancelTripReservation(id: string): Promise<CancelTripReservationResponseType> {
+    try {
+        const response = await api.patch(`/tripReservations/cancel/${id}`);
+
+        return response.data;
+    } catch (err) {
+        if (err instanceof AxiosError && err.response) {
+            return err.response.data;
+        }
+
+        return {};
+    }
+}

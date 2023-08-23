@@ -47,7 +47,7 @@ export default function Login() {
 
     return (
         <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-5">
-            <div className="w-[80] h-[80]">
+            <div className="h-[80] w-[80]">
                 <Image src="/logo.png" width={80} height={80} alt="Logo" />
             </div>
 

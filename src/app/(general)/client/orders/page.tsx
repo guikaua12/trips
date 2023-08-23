@@ -3,7 +3,9 @@ import MyTrip from '@/components/MyTrip';
 import { verifySession } from '@/services/users';
 import { cookies } from 'next/headers';
 import Redirect from '@/app/components/Redirect';
-import { getAllTripReservations } from '@/services/tripResevations';
+import { cancelTripReservation, getAllTripReservations } from '@/services/tripResevations';
+import { TripReservation } from '@/types/TripReservation';
+import MyTripsWrapper from '@/app/components/MyTripsWrapper';
 
 export const metadata = {
     title: 'Minhas viagens / Trips',
@@ -15,16 +17,14 @@ export default async function OrdersPage() {
     const user = await verifySession(token);
     if (!user) return <Redirect to="/auth/login" />;
 
-    const tripReservations = (await getAllTripReservations(token)).tripReservations;
+    const response = await getAllTripReservations(token);
+    const tripReservations = response.tripReservations;
 
     return (
         <div className="mb-8 p-5">
             <h2 className="mb-4">Minhas viagens</h2>
 
-            <div className="flex flex-col gap-5">
-                {tripReservations &&
-                    tripReservations.map((tripReservation) => <MyTrip tripReservation={tripReservation} />)}
-            </div>
+            <MyTripsWrapper defaultTripReservations={tripReservations} />
         </div>
     );
 }

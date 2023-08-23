@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Card from '@/components/Card';
 import Image from 'next/image';
@@ -8,12 +10,16 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import TotalPrice from '@/app/components/TotalPrice';
 import Button from '@/components/Button';
+import { cancelTripReservation } from '@/services/tripResevations';
 
 type MyTripProps = {
     tripReservation: TripReservation;
+    handleCancelClick: (tripReservation: TripReservation) => void;
 };
 
-export default function MyTrip({ tripReservation: { id, trip, userId, startDate, endDate, totalPaid } }: MyTripProps) {
+export default function MyTrip({ tripReservation, handleCancelClick }: MyTripProps) {
+    const { id, trip, userId, startDate, endDate, totalPaid, status } = tripReservation;
+
     return (
         <Card className="flex flex-col gap-4 p-5">
             <div className="flex">
@@ -36,21 +42,24 @@ export default function MyTrip({ tripReservation: { id, trip, userId, startDate,
                 <p>
                     {startDate.getDate()}-{endDate.getDate()} de {format(startDate, 'MMMM', { locale: ptBR })}
                 </p>
+
+                <p>{status}</p>
             </div>
 
             <Separator />
 
             <h5>Informações do pagamento</h5>
-            <TotalPrice
-                pricePerDay={trip.pricePerDay}
-                startDate={startDate}
-                endDate={endDate}
-                rightClassName="font-semibold"
-            />
+            <TotalPrice totalPrice={totalPaid} startDate={startDate} endDate={endDate} rightClassName="font-semibold" />
 
-            <Button variant="outline" className="text-red-600 outline-red-600">
-                Cancelar
-            </Button>
+            {status !== 'cancelled' && (
+                <Button
+                    variant="outline"
+                    className="text-red-600 outline-red-600"
+                    onClick={() => handleCancelClick(tripReservation)}
+                >
+                    Cancelar
+                </Button>
+            )}
         </Card>
     );
 }
