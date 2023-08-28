@@ -17,14 +17,13 @@ export default async function OrdersPage() {
     const user = await verifySession(token);
     if (!user) return <Redirect to="/auth/login" />;
 
-    const response = await getAllTripReservations(token);
-    const tripReservations = response.tripReservations;
+    const response = await getAllTripReservations(1, token);
 
     return (
         <div className="mb-8 p-5">
             <h2 className="mb-4">Minhas viagens</h2>
 
-            <MyTripsWrapper defaultTripReservations={tripReservations} />
+            <MyTripsWrapper response={response} />
         </div>
     );
 }

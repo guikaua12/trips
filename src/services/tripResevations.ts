@@ -51,18 +51,22 @@ export async function reservateTrip({
     }
 }
 
-type GetAllTripReservationsResponseType = {
+export type GetAllTripReservationsResponseType = {
     tripReservations?: TripReservation[];
+    pages?: number;
     error?: boolean;
     message?: string;
 };
 
-export async function getAllTripReservations(token?: string): Promise<GetAllTripReservationsResponseType> {
+export async function getAllTripReservations(
+    page: number,
+    token?: string
+): Promise<GetAllTripReservationsResponseType> {
     if (!token) token = nookies.get({}).trips_token;
     if (!token) return {};
 
     try {
-        const response = await api.get('/tripReservations/getall', {
+        const response = await api.get(`/tripReservations/getall?page=${page}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
