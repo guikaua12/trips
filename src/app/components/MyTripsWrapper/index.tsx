@@ -37,16 +37,23 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
         }
     };
 
-    const handleCancelClick = async ({ id }: TripReservation) => {
-        const response = await cancelTripReservation(id);
+    const handleCancelClick = async (tripReservation: TripReservation) => {
+        const response = await cancelTripReservation(tripReservation.id);
+        console.log(response);
 
         if (response.error) {
             alert(response.message!, 'error');
             return;
         }
 
+        if (!response.tripReservation) return;
+
+        // setItems((prevState) => [...prevState, tripReservation]);
+        setItems((prevState) =>
+            prevState.map((item) => (item.id === tripReservation.id ? response.tripReservation! : item))
+        );
+
         alert('Viagem cancelada com sucesso!', 'success');
-        // await next();
     };
 
     return (
