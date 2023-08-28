@@ -9,14 +9,16 @@ export default async function Header() {
     const user = await verifySession(cookies().get('trips_token')?.value);
 
     return (
-        <header className="container m-auto flex items-center justify-between border-b border-lightGray p-5">
-            <Link href="/">
-                <div className="relative h-[30px] w-[80px]">
-                    <Image src="/logo.png" alt="Logo" fill className="object-contain" />
-                </div>
-            </Link>
+        <header className="border-b border-lightGray">
+            <div className="container m-auto flex w-full items-center justify-between p-5">
+                <Link href="/">
+                    <div className="relative h-[30px] w-[80px]">
+                        <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+                    </div>
+                </Link>
 
-            <HeaderUserMenu isLogged={!!user} />
+                <HeaderUserMenu isLogged={!!user} />
+            </div>
         </header>
     );
 }
