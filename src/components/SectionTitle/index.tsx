@@ -7,13 +7,13 @@ interface Props extends HTMLAttributes<HTMLHeadingElement> {
 
 export default function SectionTitle({ className, children }: Props) {
     return (
-        <h2
+        <h4
             className={twMerge(
                 'flex w-full items-center gap-2 whitespace-nowrap font-medium text-gray before:block before:h-[1px] before:w-full before:bg-lightGray after:block after:h-[1px] after:w-full after:bg-lightGray',
                 className
             )}
         >
             {children}
-        </h2>
+        </h4>
     );
 }
