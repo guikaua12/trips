@@ -7,8 +7,8 @@ interface CardProps extends ComponentProps<'div'> {
 
 export default function Card({ children, title, className, ...rest }: CardProps) {
     return (
-        <div className={twMerge('w-full p-3 border border-lightGray rounded-xl shadow-lg', className)} {...rest}>
-            {title && <h1 className="font-semibold text-darkPurple text-center text-lg mb-4">{title}</h1>}
+        <div className={twMerge('w-full rounded-xl border border-lightGray p-3 shadow-lg', className)} {...rest}>
+            {title && <h1 className="mb-4 text-center text-lg font-semibold text-darkPurple">{title}</h1>}
             {children}
         </div>
     );

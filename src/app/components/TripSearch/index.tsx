@@ -1,12 +1,12 @@
 'use client';
 
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React from 'react';
 import Input from '@/components/Input';
 import CurrencyInput from '@/components/CurrencyInput';
 import DatePicker from '@/components/DatePicker';
 import Button from '@/components/Button';
 import { TripSearchSchema, TripSearchSchemaType } from '@/services/trips';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { objectToQueryParams } from '@/utils/urlUtils';

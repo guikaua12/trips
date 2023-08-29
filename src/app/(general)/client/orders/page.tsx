@@ -1,10 +1,8 @@
 import React from 'react';
-import MyTrip from '@/components/MyTrip';
 import { verifySession } from '@/services/users';
 import { cookies } from 'next/headers';
 import Redirect from '@/app/components/Redirect';
-import { cancelTripReservation, getAllTripReservations } from '@/services/tripResevations';
-import { TripReservation } from '@/types/TripReservation';
+import { getAllTripReservations } from '@/services/tripResevations';
 import MyTripsWrapper from '@/app/components/MyTripsWrapper';
 
 export const metadata = {

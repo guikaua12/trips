@@ -4,7 +4,6 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import WithAxios from '@/components/WithAxios';
 import { ReactNode, Suspense } from 'react';
 import FullScreenLoading from '@/components/FullScreenLoading';
-import { ToastContainer } from 'react-toastify';
 import ToastProvider from '@/contexts/ToastProvider';
 
 const poppins = Poppins({

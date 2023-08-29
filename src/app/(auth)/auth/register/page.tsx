@@ -1,11 +1,10 @@
 import Register from '@/app/components/auth/Register';
+import { cookies } from 'next/headers';
+import Redirect from '@/app/components/Redirect';
 
 export const metadata = {
     title: 'Registro / Trips',
 };
-
-import { cookies } from 'next/headers';
-import Redirect from '@/app/components/Redirect';
 
 async function verifyAuth(): Promise<boolean> {
     const cookieStore = cookies();

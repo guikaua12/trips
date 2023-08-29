@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import MyTrip from '@/components/MyTrip';
 import { TripReservation } from '@/types/TripReservation';
 import {

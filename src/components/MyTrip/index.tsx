@@ -10,7 +10,6 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import TotalPrice from '@/app/components/TotalPrice';
 import Button from '@/components/Button';
-import { cancelTripReservation } from '@/services/tripResevations';
 
 type MyTripProps = {
     tripReservation: TripReservation;

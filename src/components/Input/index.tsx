@@ -1,6 +1,5 @@
 import React, { InputHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { FaTriangleExclamation } from 'react-icons/fa6';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     hookFormRegister?: any;
