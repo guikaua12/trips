@@ -9,8 +9,11 @@ export const metadata = {
     title: 'Minhas viagens / Trips',
 };
 
+const delay = (ms: number = 750) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export default async function OrdersPage() {
     const token = cookies().get('trips_token')?.value;
+    await delay(3000);
 
     const user = await verifySession(token);
     if (!user) return <Redirect to="/auth/login" />;
