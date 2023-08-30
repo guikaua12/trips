@@ -4,9 +4,11 @@ import { ReactNode, useEffect } from 'react';
 import { api } from '@/services/api';
 import { useAuth } from '@/hooks/useAuth';
 import { handleDates } from '@/utils/dateUtils';
+import nookies from 'nookies';
 
 export default function WithAxios({ children }: { children: ReactNode }) {
     const { logout, isLogged } = useAuth();
+    const token = nookies.get({}).trips_token;
 
     useEffect(() => {
         const id = api.interceptors.response.use(
@@ -21,7 +23,7 @@ export default function WithAxios({ children }: { children: ReactNode }) {
                 const status = error.response.status;
 
                 // unauthorized
-                if (isLogged && status === 401) {
+                if (token && status === 401) {
                     // logout
                     logout();
 
