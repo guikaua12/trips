@@ -6,10 +6,11 @@ import Image from 'next/image';
 import Card from '@/components/Card';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { z } from 'zod';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import { toast, TypeOptions } from 'react-toastify';
 
 const loginSchema = z.object({
     email: z.string().email('E-mail inválido.').nonempty('O e-mail nâo pode ser vazio.'),
@@ -20,12 +21,12 @@ type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export default function Login() {
     const router = useRouter();
+    const alert = (message: string, type: TypeOptions) => toast(message, { type: type });
 
     const {
         handleSubmit,
         register,
         formState: { errors },
-        setError,
     } = useForm<LoginSchemaType>({
         resolver: zodResolver(loginSchema),
     });
@@ -37,8 +38,8 @@ export default function Login() {
 
         if (!data) return;
 
-        if (data.error) {
-            return setError('email', { message: data.message });
+        if (data.error && data.message) {
+            return alert(data.message, 'error');
         }
 
         router.replace('/');
