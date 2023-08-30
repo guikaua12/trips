@@ -57,27 +57,31 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
     };
 
     return (
-        <div className="flex flex-col gap-5">
-            <InfiniteScroll
-                className="flex flex-col gap-5"
-                dataLength={items.length}
-                next={next}
-                hasMore={page - 1 < response.pages!}
-                loader={
-                    <div className="flex w-full items-center justify-center">
-                        <CircleLoading />
-                    </div>
-                }
-                endMessage={<p className="text-center">Não há mais nada para carregar.</p>}
-            >
-                {items.map((tripReservation) => (
-                    <MyTrip
-                        key={tripReservation.id}
-                        tripReservation={tripReservation}
-                        handleCancelClick={handleCancelClick}
-                    />
-                ))}
-            </InfiniteScroll>
-        </div>
+        <>
+            {!!items.length && (
+                <InfiniteScroll
+                    className="flex flex-col gap-5"
+                    dataLength={items.length}
+                    next={next}
+                    hasMore={page - 1 < response.pages!}
+                    loader={
+                        <div className="flex w-full items-center justify-center">
+                            <CircleLoading />
+                        </div>
+                    }
+                    endMessage={<p className="text-center">Não há mais nada para carregar.</p>}
+                >
+                    {items.map((tripReservation) => (
+                        <MyTrip
+                            key={tripReservation.id}
+                            tripReservation={tripReservation}
+                            handleCancelClick={handleCancelClick}
+                        />
+                    ))}
+                </InfiniteScroll>
+            )}
+
+            {!items.length && <p className="text-center">Nenhuma hospedagem encontrada!</p>}
+        </>
     );
 }
