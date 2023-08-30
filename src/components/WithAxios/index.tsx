@@ -6,7 +6,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { handleDates } from '@/utils/dateUtils';
 
 export default function WithAxios({ children }: { children: ReactNode }) {
-    const { logout } = useAuth();
+    const { logout, isLogged } = useAuth();
 
     useEffect(() => {
         const id = api.interceptors.response.use(
@@ -21,7 +21,7 @@ export default function WithAxios({ children }: { children: ReactNode }) {
                 const status = error.response.status;
 
                 // unauthorized
-                if (status === 401) {
+                if (isLogged && status === 401) {
                     // logout
                     logout();
 
