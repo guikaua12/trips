@@ -44,7 +44,7 @@ export default async function TripDetailsPage({ params: { id } }: TripDetailsPro
                     <h2 className="mb-1 font-semibold text-darkPurple">Destaques</h2>
                     <div className="grid w-full grid-cols-2 gap-y-2">
                         {trip.highlights.map((highlight) => (
-                            <div className="flex gap-1">
+                            <div key={highlight} className="flex gap-1">
                                 <FaRegCircleCheck className="min-w-[1.25rem] text-purple" />
                                 <span className="text-xs text-gray">{highlight}</span>
                             </div>
