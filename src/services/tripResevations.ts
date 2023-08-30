@@ -4,6 +4,7 @@ import { api } from '@/services/api';
 import { AxiosError } from 'axios';
 import nookies from 'nookies';
 import { handleDates } from '@/utils/dateUtils';
+import { objectToQueryParams } from '@/utils/urlUtils';
 
 const TripReservationSchema = z.object({
     tripId: z.string(),
@@ -51,6 +52,14 @@ export async function reservateTrip({
     }
 }
 
+export type GetAllTripReservationsType = {
+    token?: string;
+    sort_by?: string;
+    sort_dir?: string;
+    limit?: number;
+    page?: number;
+};
+
 export type GetAllTripReservationsResponseType = {
     tripReservations?: TripReservation[];
     pages?: number;
@@ -58,19 +67,25 @@ export type GetAllTripReservationsResponseType = {
     message?: string;
 };
 
-export async function getAllTripReservations(
-    page: number,
-    token?: string
-): Promise<GetAllTripReservationsResponseType> {
+export async function getAllTripReservations({
+    token,
+    sort_by,
+    sort_dir,
+    limit,
+    page,
+}: GetAllTripReservationsType): Promise<GetAllTripReservationsResponseType> {
     if (!token) token = nookies.get({}).trips_token;
     if (!token) return {};
 
     try {
-        const response = await api.get(`/tripReservations/getall?page=${page}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const response = await api.get(
+            `/tripReservations/getall${objectToQueryParams({ sort_by, sort_dir, limit, page })}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
         handleDates(response.data);
 
