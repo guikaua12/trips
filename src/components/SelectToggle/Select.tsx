@@ -68,7 +68,7 @@ export default function Select({
                     <BsArrow90DegDown className="min-h-[15px] min-w-[15px] transition-all duration-75 group-data-[open=true]:rotate-180" />
                 </button>
                 {isOpen && (
-                    <div className="dropdown absolute left-0 top-9 w-full rounded-md bg-white py-1.5 text-sm text-gray shadow-lg">
+                    <div className="dropdown absolute left-0 top-9 rounded-md bg-white py-1.5 text-sm text-gray shadow-lg">
                         {children}
                     </div>
                 )}
