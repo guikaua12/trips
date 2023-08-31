@@ -11,7 +11,7 @@ interface Props extends ComponentProps<'div'> {
     placeholder?: string;
 }
 
-export default function Select({ className, children, handleChange = (item: SelectItem) => {}, placeholder }: Props) {
+export default function Select({ className, children, handleChange = (_: SelectItem) => {}, placeholder }: Props) {
     const [isOpen, setIsOpen] = useState(true);
     const [selected, setSelected] = useState<SelectItem | null>(null);
     const rootRef = useRef(null);
