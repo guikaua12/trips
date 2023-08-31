@@ -50,7 +50,7 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
         const response = await getAllTripReservations({
             page_start: nextPage,
             sort_by: state.sortBy as SortByType,
-            sort_dir: state.sortDir || undefined,
+            sort_dir: state.sortDir as SortDirType,
         });
 
         if (!response.tripReservations) return;
@@ -75,7 +75,7 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
 
         const getAllResponse = await getAllTripReservations({
             sort_by: state.sortBy as SortByType,
-            sort_dir: state.sortDir || undefined,
+            sort_dir: state.sortDir as SortDirType,
             page_start: 1,
             page_end: state.page,
         });
@@ -130,29 +130,6 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
             setState((prevState) => ({ ...prevState, loading: false }));
         }
     };
-
-    // const handleSortDirChange = async (item: SelectItem) => {
-    //     setSortDir(item);
-    //
-    //     try {
-    //         setLoading(true);
-    //         await delay(650);
-    //         const response = await getAllTripReservations({
-    //             sort_by: sortBy?.value,
-    //             sort_dir: item.value,
-    //             page: 1,
-    //         });
-    //
-    //         setResponse(response);
-    //
-    //         if (response.tripReservations) {
-    //             setItems(response.tripReservations);
-    //         }
-    //     } catch (e) {
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
 
     return (
         <>
