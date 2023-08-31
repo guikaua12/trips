@@ -1,7 +1,7 @@
 import React, { Children, ComponentProps, ReactElement, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-type SelectItem = {
+export type SelectItem = {
     label: string;
     value: string;
 };
