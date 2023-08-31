@@ -1,5 +1,6 @@
 import React, { Children, ComponentProps, ReactElement, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import OutsideClickDetector from '@/hooks/useOutsideClick';
 
 export type SelectItem = {
     label: string;
@@ -37,6 +38,10 @@ export default function Select({
         handleChange({ label, value });
     };
 
+    const handleOutsideClick = () => {
+        setIsOpen(false);
+    };
+
     useEffect(() => {
         const defaultSelectedIndex = Children.toArray(children).findLastIndex(
             (child) => (child as ReactElement).props.selected
@@ -51,15 +56,17 @@ export default function Select({
     }, []);
 
     return (
-        <div className={twMerge('relative cursor-pointer select-none', className)} onClick={handleRootClick}>
-            <div className="w-36 rounded-lg bg-zinc-200 px-2 py-1.5 text-sm text-gray hover:bg-zinc-400 hover:text-white">
-                {selected?.label || placeholder}
-            </div>
-            {isOpen && (
-                <div className="dropdown absolute left-0 top-9 w-full rounded-md bg-white py-1.5 text-sm text-gray shadow-lg">
-                    {children}
+        <OutsideClickDetector callback={handleOutsideClick}>
+            <div className={twMerge('relative cursor-pointer select-none', className)} onClick={handleRootClick}>
+                <div className="w-36 rounded-lg bg-zinc-200 px-2 py-1.5 text-sm text-gray hover:bg-zinc-400 hover:text-white">
+                    {selected?.label || placeholder}
                 </div>
-            )}
-        </div>
+                {isOpen && (
+                    <div className="dropdown absolute left-0 top-9 w-full rounded-md bg-white py-1.5 text-sm text-gray shadow-lg">
+                        {children}
+                    </div>
+                )}
+            </div>
+        </OutsideClickDetector>
     );
 }
