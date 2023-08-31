@@ -1,6 +1,7 @@
 import React, { Children, ComponentProps, ReactElement, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import OutsideClickDetector from '@/hooks/useOutsideClick';
+import { BsArrow90DegDown } from 'react-icons/bs';
 
 export type SelectItem = {
     label: string;
@@ -57,10 +58,15 @@ export default function Select({
 
     return (
         <OutsideClickDetector callback={handleOutsideClick}>
-            <div className={twMerge('relative cursor-pointer select-none', className)} onClick={handleRootClick}>
-                <div className="w-36 rounded-lg bg-zinc-200 px-2 py-1.5 text-sm text-gray hover:bg-zinc-400 hover:text-white">
+            <div
+                className={twMerge('group relative cursor-pointer select-none', className)}
+                onClick={handleRootClick}
+                data-open={isOpen}
+            >
+                <button className="flex flex-wrap items-center justify-between gap-2 whitespace-nowrap rounded-lg bg-zinc-200 px-2 py-1.5 text-start text-sm text-gray hover:bg-zinc-400 hover:text-white">
                     {selected?.label || placeholder}
-                </div>
+                    <BsArrow90DegDown className="min-h-[15px] min-w-[15px] transition-all duration-75 group-data-[open=true]:rotate-180" />
+                </button>
                 {isOpen && (
                     <div className="dropdown absolute left-0 top-9 w-full rounded-md bg-white py-1.5 text-sm text-gray shadow-lg">
                         {children}
