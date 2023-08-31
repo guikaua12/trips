@@ -26,7 +26,7 @@ type LoginResponseType = {
 type AuthContextType = {
     login: (data: LoginRequestType) => Promise<LoginResponseType>;
     register: (data: LoginRequestType) => Promise<LoginResponseType>;
-    logout: () => void;
+    logout: (redirect?: string) => void;
     user: User | null;
     setUserFn: (data: User | null) => void;
     isLogged: boolean;
@@ -122,11 +122,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return {};
     }
 
-    function logout(): void {
+    function logout(redirect?: string): void {
         setUser(null);
         nookies.destroy({}, 'trips_user', { path: '/' });
         nookies.destroy({}, 'trips_token', { path: '/' });
-        push('/');
+        if (redirect) push(redirect);
     }
 
     return (

@@ -5,10 +5,12 @@ import { api } from '@/services/api';
 import { useAuth } from '@/hooks/useAuth';
 import { handleDates } from '@/utils/dateUtils';
 import nookies from 'nookies';
+import { useRouter } from 'next/navigation';
 
 export default function WithAxios({ children }: { children: ReactNode }) {
     const { logout, isLogged } = useAuth();
     const token = nookies.get({}).trips_token;
+    const { push } = useRouter();
 
     useEffect(() => {
         const id = api.interceptors.response.use(
@@ -25,7 +27,7 @@ export default function WithAxios({ children }: { children: ReactNode }) {
                 // unauthorized
                 if (token && status === 401) {
                     // logout
-                    logout();
+                    logout('/auth/login');
 
                     console.log('Invalid session, logout.');
                 }

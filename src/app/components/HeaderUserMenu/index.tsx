@@ -28,7 +28,7 @@ export default function HeaderUserMenu({ isLogged: defaultIsLogged }: HeaderUser
 
     const handleLogoutClick = () => {
         console.log('handleLogoutClick');
-        logout();
+        logout('/');
     };
     const handleMyTripsClick = () => push('/client/orders');
 
