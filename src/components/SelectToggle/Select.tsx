@@ -14,7 +14,6 @@ interface Props extends ComponentProps<'div'> {
 export default function Select({ className, children, handleChange = (item: SelectItem) => {}, placeholder }: Props) {
     const [isOpen, setIsOpen] = useState(true);
     const [selected, setSelected] = useState<SelectItem | null>(null);
-    const itemRefs = useRef([]);
     const rootRef = useRef(null);
 
     const handleRootClick = (e: any) => {
