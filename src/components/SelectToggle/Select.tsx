@@ -9,9 +9,17 @@ export type SelectItem = {
 interface Props extends ComponentProps<'div'> {
     handleChange?: (value: SelectItem) => void;
     placeholder?: string;
+    /* should call handleChange on the default value? */
+    shouldCallHandleChange?: boolean;
 }
 
-export default function Select({ className, children, handleChange = (_: SelectItem) => {}, placeholder }: Props) {
+export default function Select({
+    className,
+    children,
+    handleChange = (_: SelectItem) => {},
+    placeholder,
+    shouldCallHandleChange = false,
+}: Props) {
     const [isOpen, setIsOpen] = useState(true);
     const [selected, setSelected] = useState<SelectItem | null>(null);
 
@@ -38,7 +46,7 @@ export default function Select({ className, children, handleChange = (_: SelectI
         if (defaultSelected) {
             const item: SelectItem = { label: defaultSelected.props.children, value: defaultSelected.props.value };
             setSelected(item);
-            handleChange(item);
+            if (shouldCallHandleChange) handleChange(item);
         }
     }, []);
 
