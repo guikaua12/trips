@@ -44,10 +44,12 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
     const alert = useCallback((message: string, type: TypeOptions) => toast(message, { type: type }), []);
 
     const next = async () => {
-        console.log('next');
         const nextPage = state.page + 1;
-        console.log(nextPage);
-        const response = await getAllTripReservations({ page_start: nextPage });
+        const response = await getAllTripReservations({
+            page_start: nextPage,
+            sort_by: state.sortBy as SortByType,
+            sort_dir: state.sortDir || undefined,
+        });
 
         if (!response.tripReservations) return;
 
@@ -61,7 +63,6 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
 
     const handleCancelClick = async (tripReservation: TripReservation) => {
         const response = await cancelTripReservation(tripReservation.id);
-        console.log(response);
 
         if (response.error) {
             alert(response.message!, 'error');
@@ -70,10 +71,16 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
 
         if (!response.tripReservation) return;
 
-        // // setItems((prevState) => [...prevState, tripReservation]);
-        // setItems((prevState) =>
-        //     prevState.map((item) => (item.id === tripReservation.id ? response.tripReservation! : item))
-        // );
+        const getAllResponse = await getAllTripReservations({
+            sort_by: state.sortBy as SortByType,
+            sort_dir: state.sortDir || undefined,
+            page_start: 1,
+            page_end: state.page,
+        });
+
+        if (getAllResponse.tripReservations) {
+            setState((prevState) => ({ ...prevState, items: getAllResponse.tripReservations! }));
+        }
 
         alert('Viagem cancelada com sucesso!', 'success');
     };
@@ -86,6 +93,7 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
                 sort_by: item.value as SortByType,
                 sort_dir: state.sortDir || undefined,
                 page_start: 1,
+                page_end: state.page,
             });
 
             setState((prevState) => ({
@@ -133,7 +141,7 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
                     className="flex flex-col gap-5"
                     dataLength={state.items.length}
                     next={next}
-                    hasMore={state.page - 1 < state.response.pages!}
+                    hasMore={state.page < state.response.pages!}
                     loader={
                         <div className="flex w-full items-center justify-center">
                             <CircleLoading />
