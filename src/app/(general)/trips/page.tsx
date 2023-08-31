@@ -40,9 +40,7 @@ export default async function TripSearchPage({ searchParams }: Props) {
             {!trips?.length && (
                 <div className="flex items-center justify-center">
                     <MdOutlineSearchOff size={50} className="text-darkPurple" />
-                    <h1 className="whitespace-pre-wrap font-semibold text-darkPurple">
-                        Nenhuma hospedagem encontrada!
-                    </h1>
+                    <p className="whitespace-pre-wrap font-semibold text-darkPurple">Nenhuma hospedagem encontrada!</p>
                 </div>
             )}
         </div>
