@@ -20,7 +20,7 @@ export default function Select({
     placeholder,
     shouldCallHandleChange = false,
 }: Props) {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState<SelectItem | null>(null);
 
     const handleRootClick = (e: any) => {
