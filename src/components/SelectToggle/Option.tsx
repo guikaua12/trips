@@ -9,13 +9,13 @@ type Props = {
 
 export default function Option({ children, value, selected = false }: Props) {
     return (
-        <div
-            className={twMerge('px-1 py-1 hover:bg-zinc-100')}
+        <button
+            className={twMerge('w-full px-1 py-1 hover:bg-zinc-100')}
             data-select-item={true}
             data-label={children}
             data-value={value}
         >
             {children}
-        </div>
+        </button>
     );
 }
