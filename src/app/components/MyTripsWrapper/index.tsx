@@ -133,7 +133,7 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
 
     return (
         <>
-            <div className="mb-4 flex justify-end gap-1">
+            <div className="mb-4 flex flex-wrap justify-end gap-1">
                 <OrderBy className="mb-4" handleChange={handleSortByChange} />
                 <OrderDir className="mb-4" handleChange={handleSortDirChange} />
             </div>
