@@ -133,11 +133,14 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
 
     return (
         <>
-            <div className="mb-4 flex flex-wrap justify-end gap-1">
-                <OrderBy className="mb-4" handleChange={handleSortByChange} />
-                <OrderDir className="mb-4" handleChange={handleSortDirChange} />
-            </div>
-            {!state.loading && state.items.length && (
+            {state.items.length > 0 && (
+                <div className="mb-4 flex flex-wrap justify-end gap-1">
+                    <OrderBy className="mb-4" handleChange={handleSortByChange} />
+                    <OrderDir className="mb-4" handleChange={handleSortDirChange} />
+                </div>
+            )}
+
+            {!state.loading && state.items.length > 0 && (
                 <InfiniteScroll
                     className="flex flex-col gap-5"
                     dataLength={state.items.length}
@@ -160,7 +163,9 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
                 </InfiniteScroll>
             )}
 
-            {!state.loading && !state.items.length && <p className="text-center">Nenhuma hospedagem encontrada!</p>}
+            {!state.loading && state.items.length == 0 && (
+                <p className="mt-8 text-center">Nenhuma hospedagem encontrada!</p>
+            )}
 
             {state.loading && <MyTripsWrapperSkeleton quantity={2} />}
         </>
