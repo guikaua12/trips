@@ -11,7 +11,7 @@ export default function OrderBy({ className, handleChange, ...props }: Props) {
             <SelectToggle.Option value="createdAt" selected>
                 Data de criação
             </SelectToggle.Option>
-            <SelectToggle.Option value="totalPaid">Preço</SelectToggle.Option>
+            <SelectToggle.Option value="totalPaid">Total pago</SelectToggle.Option>
         </SelectToggle.Select>
     );
 }
