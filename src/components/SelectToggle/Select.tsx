@@ -14,7 +14,6 @@ interface Props extends ComponentProps<'div'> {
 export default function Select({ className, children, handleChange = (_: SelectItem) => {}, placeholder }: Props) {
     const [isOpen, setIsOpen] = useState(true);
     const [selected, setSelected] = useState<SelectItem | null>(null);
-    const rootRef = useRef(null);
 
     const handleRootClick = (e: any) => {
         setIsOpen((prevState) => !prevState);
@@ -44,11 +43,7 @@ export default function Select({ className, children, handleChange = (_: SelectI
     }, []);
 
     return (
-        <div
-            ref={rootRef}
-            className={twMerge('relative cursor-pointer select-none', className)}
-            onClick={handleRootClick}
-        >
+        <div className={twMerge('relative cursor-pointer select-none', className)} onClick={handleRootClick}>
             <div className="w-36 rounded-lg bg-zinc-200 px-2 py-1.5 text-sm text-gray hover:bg-zinc-400 hover:text-white">
                 {selected?.label || placeholder}
             </div>
