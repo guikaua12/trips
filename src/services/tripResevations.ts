@@ -57,7 +57,8 @@ export type GetAllTripReservationsType = {
     sort_by?: string;
     sort_dir?: string;
     limit?: number;
-    page?: number;
+    page_start?: number;
+    page_end?: number;
 };
 
 export type GetAllTripReservationsResponseType = {
@@ -72,14 +73,15 @@ export async function getAllTripReservations({
     sort_by,
     sort_dir,
     limit,
-    page,
+    page_start,
+    page_end = page_start,
 }: GetAllTripReservationsType): Promise<GetAllTripReservationsResponseType> {
     if (!token) token = nookies.get({}).trips_token;
     if (!token) return {};
 
     try {
         const response = await api.get(
-            `/tripReservations/getall${objectToQueryParams({ sort_by, sort_dir, limit, page })}`,
+            `/tripReservations/getall${objectToQueryParams({ sort_by, sort_dir, limit, page_start, page_end })}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
