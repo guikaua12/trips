@@ -9,7 +9,7 @@ import { ptBR } from 'date-fns/locale';
 import TotalPrice from '@/app/components/TotalPrice';
 import Button from '@/components/Button';
 import { twMerge } from 'tailwind-merge';
-import { BsCheckCircleFill, BsFillXCircleFill } from 'react-icons/bs';
+import { BsCheckCircleFill, BsClockFill, BsFillXCircleFill } from 'react-icons/bs';
 
 type MyTripProps = {
     tripReservation: TripReservation;
@@ -25,7 +25,7 @@ const CardBorderTopStatus: Record<TripReservationStatus, string> = {
 const IconStatus: Record<TripReservationStatus, ReactNode> = {
     cancelled: <BsFillXCircleFill className="text-red-600" />,
     confirmed: <BsCheckCircleFill className="text-emerald-600" />,
-    pending: <BsCheckCircleFill className="text-yellow-600" />,
+    pending: <BsClockFill className="text-yellow-600" />,
 };
 
 export default function MyTrip({ tripReservation, handleCancelClick }: MyTripProps) {
