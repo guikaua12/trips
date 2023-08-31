@@ -1,5 +1,7 @@
 import { Trip } from '@/types/Trip';
 
+export type TripReservationStatus = 'pending' | 'confirmed' | 'cancelled';
+
 export type TripReservation = {
     id: string;
     trip: Trip;
@@ -7,5 +9,11 @@ export type TripReservation = {
     startDate: Date;
     endDate: Date;
     totalPaid: number;
-    status: 'pending' | 'confirmed' | 'cancelled';
+    status: TripReservationStatus;
+};
+
+export const statusToLabel: Record<TripReservationStatus, string> = {
+    pending: 'Pendente',
+    confirmed: 'Confirmado',
+    cancelled: 'Cancelado',
 };
