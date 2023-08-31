@@ -12,10 +12,7 @@ import { toast, TypeOptions } from 'react-toastify';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CircleLoading from '@/components/CircleLoading';
 import OrderBy from '@/app/components/OrderBy';
-import SelectToggle, { SelectItem } from '@/components/SelectToggle';
 import MyTripsWrapperSkeleton from '@/app/components/MyTripsWrapperSkeleton';
-import OrderDir from '@/app/components/OrderDir';
-import { twMerge } from 'tailwind-merge';
 
 type MyTripsWrapperProps = {
     response: GetAllTripReservationsResponseType;
@@ -26,8 +23,8 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWrapperProps) {
     const [page, setPage] = useState(1);
     const [response, setResponse] = useState<GetAllTripReservationsResponseType>(defaultResponse);
-    const [sortBy, setSortBy] = useState<SelectItem | null>(null);
-    const [sortDir, setSortDir] = useState<SelectItem | null>(null);
+    // const [sortBy, setSortBy] = useState<SelectItem | null>(null);
+    // const [sortDir, setSortDir] = useState<SelectItem | null>(null);
     const [items, setItems] = useState<TripReservation[]>(defaultResponse.tripReservations || []);
     const [loading, setLoading] = useState(false);
 
@@ -66,59 +63,63 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
         alert('Viagem cancelada com sucesso!', 'success');
     };
 
-    const handleSortByChange = async (item: SelectItem) => {
-        setSortBy(item);
+    // const handleSortByChange = async (item: SelectItem) => {
+    //     // setSortBy(item);
+    //
+    //     try {
+    //         setLoading(true);
+    //         await delay(650);
+    //         const response = await getAllTripReservations({
+    //             sort_by: item.value,
+    //             sort_dir: sortDir?.value,
+    //             page: 1,
+    //         });
+    //
+    //         setResponse(response);
+    //
+    //         if (response.tripReservations) {
+    //             setItems(response.tripReservations);
+    //         }
+    //     } catch (e) {
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
-        try {
-            setLoading(true);
-            await delay(650);
-            const response = await getAllTripReservations({
-                sort_by: item.value,
-                sort_dir: sortDir?.value,
-                page: 1,
-            });
-
-            setResponse(response);
-
-            if (response.tripReservations) {
-                setItems(response.tripReservations);
-            }
-        } catch (e) {
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleSortDirChange = async (item: SelectItem) => {
-        setSortDir(item);
-
-        try {
-            setLoading(true);
-            await delay(650);
-            const response = await getAllTripReservations({
-                sort_by: sortBy?.value,
-                sort_dir: item.value,
-                page: 1,
-            });
-
-            setResponse(response);
-
-            if (response.tripReservations) {
-                setItems(response.tripReservations);
-            }
-        } catch (e) {
-        } finally {
-            setLoading(false);
-        }
-    };
+    // const handleSortDirChange = async (item: SelectItem) => {
+    //     setSortDir(item);
+    //
+    //     try {
+    //         setLoading(true);
+    //         await delay(650);
+    //         const response = await getAllTripReservations({
+    //             sort_by: sortBy?.value,
+    //             sort_dir: item.value,
+    //             page: 1,
+    //         });
+    //
+    //         setResponse(response);
+    //
+    //         if (response.tripReservations) {
+    //             setItems(response.tripReservations);
+    //         }
+    //     } catch (e) {
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
     return (
         <>
             <div className="mb-4 flex justify-end gap-1">
-                <OrderBy className="mb-4" selected={sortBy} handleChange={handleSortByChange} />
-                <OrderDir className="mb-4" selected={sortDir} handleChange={handleSortDirChange} />
+                <OrderBy
+                    className="mb-4"
+                    handleChange={(item) => {
+                        console.log(item);
+                    }}
+                />
+                {/*<OrderDir className="mb-4" selected={sortDir} handleChange={handleSortDirChange} />*/}
             </div>
-
             {!loading && items.length && (
                 <InfiniteScroll
                     className="flex flex-col gap-5"

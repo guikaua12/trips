@@ -1,39 +1,17 @@
-import SelectToggle, { SelectItem } from '@/components/SelectToggle';
-import React, { ComponentProps, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
-
-const items: SelectItem[] = [
-    {
-        label: 'Data de criação',
-        value: 'createdAt',
-    },
-    {
-        label: 'Preço',
-        value: 'totalPaid',
-    },
-];
+import SelectToggle from '@/components/SelectToggle';
+import { ComponentProps } from 'react';
 
 interface Props extends ComponentProps<'div'> {
-    selected: SelectItem | null;
-    handleChange: (item: SelectItem) => void;
+    handleChange: (value: any) => void;
 }
 
-export default function OrderBy({ className, selected, handleChange, ...props }: Props) {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleOpenClick = () => {
-        setIsOpen((prevState) => !prevState);
-    };
-
+export default function OrderBy({ className, handleChange, ...props }: Props) {
     return (
-        <SelectToggle
-            className="z-50"
-            selected={selected}
-            isOpen={isOpen}
-            setIsOpen={handleOpenClick}
-            items={items}
-            handleChange={handleChange}
-            placeholder="Ordenar por"
-        />
+        <SelectToggle.Select className="z-50" handleChange={handleChange} placeholder="Ordenar por" {...props}>
+            <SelectToggle.Option value={10}>Dez</SelectToggle.Option>
+            <SelectToggle.Option value={20} selected>
+                Vinte
+            </SelectToggle.Option>
+        </SelectToggle.Select>
     );
 }
