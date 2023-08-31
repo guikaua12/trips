@@ -15,7 +15,7 @@ export default async function OrdersPage() {
     const user = await verifySession(token);
     if (!user) return <Redirect to="/auth/login" />;
 
-    const response = await getAllTripReservations({ page: 1, token });
+    const response = await getAllTripReservations({ page_start: 1, sort_by: 'createdAt', token });
 
     return (
         <div className="mb-8 p-5">

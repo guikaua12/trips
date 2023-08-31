@@ -7,6 +7,7 @@ import {
     cancelTripReservation,
     getAllTripReservations,
     GetAllTripReservationsResponseType,
+    SortByType,
 } from '@/services/tripResevations';
 import { toast, TypeOptions } from 'react-toastify';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -82,7 +83,7 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
             setState((prevState) => ({ ...prevState, sortBy: item.value, loading: true }));
             await delay(650);
             const response = await getAllTripReservations({
-                sort_by: item.value,
+                sort_by: item.value as SortByType,
                 sort_dir: state.sortDir || undefined,
                 page_start: 1,
             });
