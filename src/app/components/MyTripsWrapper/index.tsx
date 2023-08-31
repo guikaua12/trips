@@ -8,6 +8,7 @@ import {
     getAllTripReservations,
     GetAllTripReservationsResponseType,
     SortByType,
+    SortDirType,
 } from '@/services/tripResevations';
 import { toast, TypeOptions } from 'react-toastify';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -15,6 +16,7 @@ import CircleLoading from '@/components/CircleLoading';
 import OrderBy from '@/app/components/OrderBy';
 import MyTripsWrapperSkeleton from '@/app/components/MyTripsWrapperSkeleton';
 import { SelectItem } from '@/components/SelectToggle/Select';
+import OrderDir from '@/app/components/OrderDir';
 
 type MyTripsWrapperProps = {
     response: GetAllTripReservationsResponseType;
@@ -91,7 +93,29 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
             await delay(650);
             const response = await getAllTripReservations({
                 sort_by: item.value as SortByType,
-                sort_dir: state.sortDir || undefined,
+                sort_dir: state.sortDir as SortDirType,
+                page_start: 1,
+                page_end: state.page,
+            });
+
+            setState((prevState) => ({
+                ...prevState,
+                response,
+                items: response.tripReservations || [],
+            }));
+        } catch (e) {
+        } finally {
+            setState((prevState) => ({ ...prevState, loading: false }));
+        }
+    };
+
+    const handleSortDirChange = async (item: SelectItem) => {
+        try {
+            setState((prevState) => ({ ...prevState, sortDir: item.value, loading: true }));
+            await delay(650);
+            const response = await getAllTripReservations({
+                sort_by: state.sortBy as SortByType,
+                sort_dir: item.value as SortDirType,
                 page_start: 1,
                 page_end: state.page,
             });
@@ -134,7 +158,7 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
         <>
             <div className="mb-4 flex justify-end gap-1">
                 <OrderBy className="mb-4" handleChange={handleSortByChange} />
-                {/*<OrderDir className="mb-4" selected={sortDir} handleChange={handleSortDirChange} />*/}
+                <OrderDir className="mb-4" handleChange={handleSortDirChange} />
             </div>
             {!state.loading && state.items.length && (
                 <InfiniteScroll

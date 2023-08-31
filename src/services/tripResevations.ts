@@ -53,11 +53,12 @@ export async function reservateTrip({
 }
 
 export type SortByType = 'createdAt' | 'totalPaid';
+export type SortDirType = 'asc' | 'desc';
 
 export type GetAllTripReservationsType = {
     token?: string;
     sort_by?: SortByType;
-    sort_dir?: string;
+    sort_dir?: SortDirType;
     limit?: number;
     page_start?: number;
     page_end?: number;
