@@ -62,7 +62,7 @@ export default function Register() {
                 <Image src="/logo.png" width={80} height={80} alt="Logo" />
             </div>
 
-            <Card title="Registro">
+            <Card title="Registro" className="max-w-sm">
                 <form className="flex flex-col gap-2" onSubmit={handleSubmit(handleSubmitClick)}>
                     <div className="mb-4 flex flex-col gap-3">
                         <Input
