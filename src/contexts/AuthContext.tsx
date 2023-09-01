@@ -28,7 +28,6 @@ type AuthContextType = {
     register: (data: LoginRequestType) => Promise<LoginResponseType>;
     logout: (redirect?: string) => void;
     user: User | null;
-    setUserFn: (data: User | null) => void;
     isLogged: boolean;
     isLoading: boolean;
 };
@@ -45,20 +44,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         verifySession()
             .then((data) => {
                 if (data) {
-                    setUserFn(data);
+                    setUser(data);
                 }
             })
             .finally(() => setIsLoading(false));
     }, []);
 
-    function setUserFn(data: User | null): void {
-        setUser(data);
-        nookies.set({}, 'trips_user', JSON.stringify(data), {
+    useEffect(() => {
+        nookies.set({}, 'trips_user', JSON.stringify(user), {
             // 24 hours
             maxAge: 60 * 60 * 24,
             path: '/',
         });
-    }
+    }, [user]);
 
     async function login({ email, password }: LoginRequestType): Promise<LoginResponseType> {
         try {
@@ -67,7 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const { user, token, error, message }: LoginResponseType = response.data;
 
             if (user && token) {
-                setUserFn(user);
+                setUser(user);
                 nookies.set({}, 'trips_token', token, {
                     // 24 hours
                     maxAge: 60 * 60 * 24,
@@ -102,7 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const { user, token, error, message }: LoginResponseType = response.data;
 
             if (user && token) {
-                setUserFn(user);
+                setUser(user);
                 nookies.set({}, 'trips_token', token, {
                     // 24 hours
                     maxAge: 60 * 60 * 24,
@@ -130,7 +128,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     return (
-        <AuthContext.Provider value={{ login, register, logout, user, setUserFn, isLogged, isLoading }}>
+        <AuthContext.Provider value={{ login, register, logout, user, isLogged, isLoading }}>
             {children}
         </AuthContext.Provider>
     );
