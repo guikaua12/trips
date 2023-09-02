@@ -10,6 +10,7 @@ import React from 'react';
 import { z } from 'zod';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const registerSchema = z
     .object({
@@ -63,8 +64,8 @@ export default function Register() {
             </div>
 
             <Card title="Registro" className="max-w-sm">
-                <form className="flex flex-col gap-2" onSubmit={handleSubmit(handleSubmitClick)}>
-                    <div className="mb-4 flex flex-col gap-3">
+                <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleSubmitClick)}>
+                    <div className="flex flex-col gap-3">
                         <Input
                             className="w-full"
                             type="text"
@@ -90,6 +91,14 @@ export default function Register() {
                             error={errors.confirmPassword?.message?.toString()}
                         />
                     </div>
+
+                    <div className="text-sm text-gray">
+                        Já tem uma conta?
+                        <Link href="/auth/login" className="ml-1 font-medium text-purple">
+                            Login
+                        </Link>
+                    </div>
+
                     <Button>Registrar</Button>
                 </form>
             </Card>

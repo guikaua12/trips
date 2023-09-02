@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { toast, TypeOptions } from 'react-toastify';
+import Link from 'next/link';
 
 const loginSchema = z.object({
     email: z.string().email('E-mail inválido.').nonempty('O e-mail nâo pode ser vazio.'),
@@ -53,8 +54,8 @@ export default function Login() {
             </div>
 
             <Card title="Login" className="max-w-sm">
-                <form className="flex flex-col gap-2" onSubmit={handleSubmit(handleSubmitClick)}>
-                    <div className="mb-4 flex flex-col gap-3">
+                <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleSubmitClick)}>
+                    <div className="flex flex-col gap-3">
                         <Input
                             className="w-full"
                             type="text"
@@ -72,6 +73,14 @@ export default function Login() {
                             error={errors.password?.message?.toString()}
                         />
                     </div>
+
+                    <div className="text-sm text-gray">
+                        Ainda não tem uma conta?
+                        <Link href="/auth/register" className="ml-1 font-medium text-purple">
+                            Registrar
+                        </Link>
+                    </div>
+
                     <Button>Entrar</Button>
                 </form>
             </Card>
