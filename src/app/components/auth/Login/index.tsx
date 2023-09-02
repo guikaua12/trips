@@ -6,12 +6,13 @@ import Image from 'next/image';
 import Card from '@/components/Card';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 import { z } from 'zod';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { toast, TypeOptions } from 'react-toastify';
 import Link from 'next/link';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const loginSchema = z.object({
     email: z.string().email('E-mail inválido.').nonempty('O e-mail nâo pode ser vazio.'),
@@ -21,6 +22,7 @@ const loginSchema = z.object({
 type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export default function Login() {
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
     const alert = (message: string, type: TypeOptions) => toast(message, { type: type });
 
@@ -35,7 +37,9 @@ export default function Login() {
     const { login } = useAuth();
 
     async function handleSubmitClick({ email, password }: LoginSchemaType) {
+        setLoading(true);
         const data = await login({ email, password });
+        setLoading(false);
 
         if (!data) return;
 
@@ -81,7 +85,13 @@ export default function Login() {
                         </Link>
                     </div>
 
-                    <Button>Entrar</Button>
+                    <Button disabled={loading}>
+                        {loading ? (
+                            <AiOutlineLoading3Quarters className="min-h-[1.063rem] min-w-[1.063rem] animate-spin text-white" />
+                        ) : (
+                            'Entrar'
+                        )}
+                    </Button>
                 </form>
             </Card>
         </div>
