@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import Card from '@/components/Card';
 import Image from 'next/image';
 import { statusToLabel, TripReservation, TripReservationStatus } from '@/types/TripReservation';
@@ -29,10 +29,17 @@ const IconStatus: Record<TripReservationStatus, ReactNode> = {
 };
 
 export default function MyTrip({ tripReservation, handleCancelClick }: MyTripProps) {
+    const [loading, setLoading] = useState(false);
     const { id, trip, userId, startDate, endDate, totalPaid, status } = tripReservation;
 
     return (
-        <Card className={twMerge('flex flex-col gap-4 border-t-2 p-5', CardBorderTopStatus[status])}>
+        <Card
+            className={twMerge(
+                'flex flex-col gap-4 border-t-2 p-5',
+                loading && 'opacity-50',
+                CardBorderTopStatus[status]
+            )}
+        >
             <div className="flex">
                 <div className="relative aspect-video h-[100px] w-[120px] rounded-lg bg-zinc-300 object-cover">
                     <Image src={trip.coverImage} fill alt="Cover image" className="rounded-lg" />
@@ -70,7 +77,11 @@ export default function MyTrip({ tripReservation, handleCancelClick }: MyTripPro
                 <Button
                     variant="outline"
                     className="text-red-600 outline-red-600"
-                    onClick={() => handleCancelClick(tripReservation)}
+                    onClick={async () => {
+                        setLoading(true);
+                        await handleCancelClick(tripReservation);
+                        setLoading(false);
+                    }}
                 >
                     Cancelar
                 </Button>
