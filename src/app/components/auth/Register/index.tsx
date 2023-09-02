@@ -6,11 +6,12 @@ import Image from 'next/image';
 import Card from '@/components/Card';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
-import React from 'react';
+import React, { useState } from 'react';
 import { z } from 'zod';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 const registerSchema = z
     .object({
@@ -31,6 +32,7 @@ const registerSchema = z
 type RegisterSchemaType = z.infer<typeof registerSchema>;
 
 export default function Register() {
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     const {
@@ -45,7 +47,9 @@ export default function Register() {
     const { register: registerUser } = useAuth();
 
     async function handleSubmitClick({ email, password }: RegisterSchemaType) {
+        setLoading(true);
         const data = await registerUser({ email, password });
+        setLoading(false);
 
         if (!data) return;
 
@@ -99,7 +103,13 @@ export default function Register() {
                         </Link>
                     </div>
 
-                    <Button>Registrar</Button>
+                    <Button>
+                        {loading ? (
+                            <AiOutlineLoading3Quarters className="min-h-[1.063rem] min-w-[1.063rem] animate-spin text-white" />
+                        ) : (
+                            'Registrar'
+                        )}
+                    </Button>
                 </form>
             </Card>
         </div>
