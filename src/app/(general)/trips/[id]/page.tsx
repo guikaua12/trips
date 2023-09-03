@@ -22,8 +22,12 @@ export default async function TripDetailsPage({ params: { id } }: TripDetailsPro
 
     return (
         <div className="min-h-[85%] w-full">
-            <div className="relative h-[250px] w-full">
-                <Image src={trip.coverImage} fill alt="Cover image" className="flex object-cover" />
+            <div className="flex min-h-[250px] w-full snap-x snap-mandatory overflow-x-scroll">
+                {[trip.coverImage, ...trip.imagesUrl].map((img) => (
+                    <div className="relative min-h-[250px] min-w-[50vh] snap-start">
+                        <Image src={img} fill alt="Cover image" className="object-cover" />
+                    </div>
+                ))}
             </div>
 
             <div className="p-5">
