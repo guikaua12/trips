@@ -33,7 +33,7 @@ export default async function TripDetailsPage({ params: { id } }: TripDetailsPro
                 </div>
             </div>
 
-            <div className="px-4 sm:px-0">
+            <div className="px-4 sm:p-0">
                 <TripReservation trip={trip} />
 
                 <Separator className="my-8" />
