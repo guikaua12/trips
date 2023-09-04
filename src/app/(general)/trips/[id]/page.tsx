@@ -21,20 +21,24 @@ export default async function TripDetailsPage({ params: { id } }: TripDetailsPro
     if (!trip) return <Redirect to="/" />;
 
     return (
-        <div className="min-h-[85%] w-full">
-            <div className="flex min-h-[250px] w-full snap-x snap-mandatory overflow-x-scroll">
-                {[trip.coverImage, ...trip.imagesUrl].map((img) => (
-                    <div className="relative min-h-[250px] min-w-[50vh] snap-start">
-                        <Image src={img} fill alt="Cover image" className="object-cover" />
-                    </div>
-                ))}
+        <>
+            <div className="flex flex-col sm:flex-col-reverse">
+                <div className="flex min-h-[250px] w-full snap-x snap-mandatory overflow-x-scroll">
+                    {[trip.coverImage, ...trip.imagesUrl].map((img) => (
+                        <div className="relative min-h-[250px] min-w-[50vh] snap-start">
+                            <Image src={img} fill alt="Cover image" className="object-cover" />
+                        </div>
+                    ))}
+                </div>
+
+                <div className="px-4 sm:px-0">
+                    <h1 className="text-xl font-semibold text-darkPurple">{trip.name}</h1>
+
+                    <LocationWithFlag countryCode={trip.countryCode} location={trip.location} />
+                </div>
             </div>
 
-            <div className="p-5">
-                <h1 className="text-xl font-semibold text-darkPurple">{trip.name}</h1>
-
-                <LocationWithFlag countryCode={trip.countryCode} location={trip.location} />
-
+            <div className="px-4 sm:px-0">
                 <TripReservation trip={trip} />
 
                 <Separator className="my-8" />

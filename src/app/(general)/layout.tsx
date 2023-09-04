@@ -10,7 +10,7 @@ export default function GeneralLayout({ children }: { children: React.ReactNode 
     return (
         <>
             <Header />
-            <main className="min-h-[85%] sm:min-h-[90%]">{children}</main>
+            <main className="min-h-[85%] w-full sm:min-h-[90%]">{children}</main>
 
             <Footer />
         </>
