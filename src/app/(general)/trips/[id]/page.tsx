@@ -8,6 +8,7 @@ import TripReservation from '@/app/components/TripReservation';
 import Separator from '@/components/Separator';
 import { FaRegCircleCheck } from 'react-icons/fa6';
 import LocationWithFlag from '@/app/components/LocationWithFlag';
+import ImageDivider from '@/components/ImageDivider';
 
 type TripDetailsProps = {
     params: { id: string };
@@ -21,17 +22,11 @@ export default async function TripDetailsPage({ params: { id } }: TripDetailsPro
     if (!trip) return <Redirect to="/" />;
 
     return (
-        <>
+        <div className="sm:container sm:mx-auto sm:max-w-7xl">
             <div className="flex flex-col sm:flex-col-reverse">
-                <div className="flex min-h-[250px] w-full snap-x snap-mandatory overflow-x-scroll">
-                    {[trip.coverImage, ...trip.imagesUrl].map((img) => (
-                        <div className="relative min-h-[250px] min-w-[50vh] snap-start">
-                            <Image src={img} fill alt="Cover image" className="object-cover" />
-                        </div>
-                    ))}
-                </div>
-
-                <div className="px-4 sm:px-0">
+                {/*<ImageDivider images={[trip.coverImage, ...trip.imagesUrl]} />*/}
+                <ImageDivider images={[trip.coverImage, ...trip.imagesUrl]} gap="4px" />
+                <div className="p-4 sm:p-0">
                     <h1 className="text-xl font-semibold text-darkPurple">{trip.name}</h1>
 
                     <LocationWithFlag countryCode={trip.countryCode} location={trip.location} />
