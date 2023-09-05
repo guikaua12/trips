@@ -78,7 +78,7 @@ export default function MyTrip({ tripReservation, handleCancelClick, className, 
             {status !== 'cancelled' && (
                 <Button
                     variant="outline"
-                    className="text-red-600 outline-red-600"
+                    className="text-red-600 outline-red-600 hover:bg-red-600 hover:text-white"
                     onClick={async () => {
                         setLoading(true);
                         await handleCancelClick(tripReservation);

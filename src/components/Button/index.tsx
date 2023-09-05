@@ -19,7 +19,7 @@ export default function Button({ className, children, variant = 'primary', ...pr
     return (
         <button
             className={twMerge(
-                'flex h-9 items-center justify-center rounded-md text-center text-sm',
+                'flex h-9 items-center justify-center rounded-md text-center text-sm transition-all duration-200',
                 ButtonVariants[variant],
                 className
             )}
