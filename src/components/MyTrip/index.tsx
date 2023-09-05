@@ -35,7 +35,7 @@ export default function MyTrip({ tripReservation, handleCancelClick, className, 
     return (
         <Card
             className={twMerge(
-                'flex flex-col gap-4 border-t-2 p-5',
+                'flex h-full w-full flex-col gap-4 border-t-2 p-5 sm:max-w-md',
                 loading && 'opacity-50',
                 CardBorderTopStatus[status],
                 className

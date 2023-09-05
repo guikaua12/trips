@@ -159,7 +159,6 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
                                 key={tripReservation.id}
                                 tripReservation={tripReservation}
                                 handleCancelClick={handleCancelClick}
-                                className=""
                             />
                         ))}
                     </div>
