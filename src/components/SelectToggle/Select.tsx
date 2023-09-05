@@ -1,4 +1,4 @@
-import React, { Children, ComponentProps, ReactElement, useEffect, useRef, useState } from 'react';
+import React, { Children, ComponentProps, ReactElement, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import OutsideClickDetector from '@/hooks/useOutsideClick';
 import { BsArrow90DegDown } from 'react-icons/bs';

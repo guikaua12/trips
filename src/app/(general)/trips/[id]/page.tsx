@@ -1,9 +1,6 @@
 import React from 'react';
 import { getTrip } from '@/services/trips';
 import Redirect from '@/app/components/Redirect';
-import Image from 'next/image';
-import { verifySession } from '@/services/users';
-import { cookies } from 'next/headers';
 import TripReservation from '@/app/components/TripReservation';
 import Separator from '@/components/Separator';
 import { FaRegCircleCheck } from 'react-icons/fa6';
