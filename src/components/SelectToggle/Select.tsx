@@ -54,7 +54,7 @@ export default function Select({
             setSelected(item);
             if (shouldCallHandleChange) handleChange(item);
         }
-    }, []);
+    }, [children, handleChange, shouldCallHandleChange]);
 
     return (
         <OutsideClickDetector callback={handleOutsideClick}>

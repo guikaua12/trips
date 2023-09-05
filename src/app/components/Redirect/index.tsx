@@ -10,7 +10,7 @@ export default function Redirect({ to }: { to: string }) {
     useEffect(() => {
         router.replace(to);
         router.refresh();
-    }, []);
+    }, [router, to]);
 
     return <FullScreenLoading />;
 }

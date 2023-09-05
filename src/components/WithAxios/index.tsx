@@ -37,7 +37,7 @@ export default function WithAxios({ children }: { children: ReactNode }) {
         );
 
         return () => api.interceptors.response.eject(id);
-    }, [logout]);
+    }, [logout, token]);
 
     return children;
 }

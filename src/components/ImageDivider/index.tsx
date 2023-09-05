@@ -26,7 +26,7 @@ function divideArrayIntoParts<T>(arr: T[], partSize: number, skip: number = 0) {
 const ImageDivider = ({ images, gap = '4px', partSize = 2, mobileClassName = '', desktopClassName = '' }: Props) => {
     const [width, setWidth] = useState(0);
 
-    const groups = useMemo(() => divideArrayIntoParts(images, partSize, 1), [images]);
+    const groups = useMemo(() => divideArrayIntoParts(images, partSize, 1), [images, partSize]);
 
     useEffect(() => {
         setWidth(window.innerWidth);
@@ -65,7 +65,7 @@ const ImageDivider = ({ images, gap = '4px', partSize = 2, mobileClassName = '',
                         if (group.length == partSize) {
                             const flexDirection = groups.length > 1 ? 'row' : 'column';
                             return (
-                                <div className="flex h-full w-full" style={{ flexDirection, gap }}>
+                                <div key={index} className="flex h-full w-full" style={{ flexDirection, gap }}>
                                     {group.map((img) => drawImage(img))}
                                 </div>
                             );
