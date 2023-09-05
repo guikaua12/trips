@@ -11,12 +11,16 @@ import { addDays, differenceInDays, subDays } from 'date-fns';
 import { reservateTrip } from '@/services/tripResevations';
 import TotalPrice from '@/app/components/TotalPrice';
 import { toast, TypeOptions } from 'react-toastify';
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 interface TripReservationProps extends ComponentProps<'div'> {
     trip: Trip;
 }
 
 export default function TripReservation({ trip, ...props }: TripReservationProps) {
+    const { isLogged } = useAuth();
+    const { push } = useRouter();
     const alert = useCallback((message: string, type: TypeOptions) => toast(message, { type: type }), []);
 
     const TripReservationSchema = z.object({
@@ -49,6 +53,10 @@ export default function TripReservation({ trip, ...props }: TripReservationProps
     const totalPrice = trip.pricePerDay * differenceInDays(currentEndDate, currentStartDate);
 
     async function handleSubmitClick({ startDate, endDate, guests }: TripReservationSchemaType) {
+        if (!isLogged) {
+            return push('/auth/login');
+        }
+
         const response = await reservateTrip({
             tripId: trip.id,
             startDate,

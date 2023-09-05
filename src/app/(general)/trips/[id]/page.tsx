@@ -15,9 +15,6 @@ type TripDetailsProps = {
 };
 
 export default async function TripDetailsPage({ params: { id } }: TripDetailsProps) {
-    const user = await verifySession(cookies().get('trips_token')?.value);
-    if (!user) return <Redirect to="/auth/login" />;
-
     const trip = await getTrip(id);
     if (!trip) return <Redirect to="/" />;
 
