@@ -1,6 +1,6 @@
 'use client';
 import DatePicker from '@/components/DatePicker';
-import React, { useCallback } from 'react';
+import React, { ComponentProps, useCallback } from 'react';
 import { Trip } from '@/types/Trip';
 import Input from '@/components/Input';
 import { Controller, useForm } from 'react-hook-form';
@@ -12,11 +12,11 @@ import { reservateTrip } from '@/services/tripResevations';
 import TotalPrice from '@/app/components/TotalPrice';
 import { toast, TypeOptions } from 'react-toastify';
 
-type TripReservationProps = {
+interface TripReservationProps extends ComponentProps<'div'> {
     trip: Trip;
-};
+}
 
-export default function TripReservation({ trip }: TripReservationProps) {
+export default function TripReservation({ trip, ...props }: TripReservationProps) {
     const alert = useCallback((message: string, type: TypeOptions) => toast(message, { type: type }), []);
 
     const TripReservationSchema = z.object({
@@ -67,7 +67,7 @@ export default function TripReservation({ trip }: TripReservationProps) {
     }
 
     return (
-        <div>
+        <div {...props}>
             <div className="mb-4 flex gap-1">
                 <span className="text-xs font-semibold text-purple">R${trip.pricePerDay}</span>
                 <span className="text-xs text-gray">por noite</span>

@@ -6,9 +6,10 @@ import { twMerge } from 'tailwind-merge';
 
 type Props = {
     images: string[];
-    height?: number;
     gap?: string | number;
     partSize?: number;
+    mobileClassName?: string;
+    desktopClassName?: string;
 };
 
 function divideArrayIntoParts<T>(arr: T[], partSize: number, skip: number = 0) {
@@ -22,7 +23,7 @@ function divideArrayIntoParts<T>(arr: T[], partSize: number, skip: number = 0) {
     return result;
 }
 
-const ImageDivider = ({ images, height = 300, gap = '4px', partSize = 2 }: Props) => {
+const ImageDivider = ({ images, gap = '4px', partSize = 2, mobileClassName = '', desktopClassName = '' }: Props) => {
     const [width, setWidth] = useState(0);
 
     const groups = useMemo(() => divideArrayIntoParts(images, partSize, 1), [images]);
@@ -40,7 +41,7 @@ const ImageDivider = ({ images, height = 300, gap = '4px', partSize = 2 }: Props
 
     const drawImage = useCallback((src: string = '', className: string = '') => {
         return (
-            <div className={twMerge('relative h-full w-full', className)}>
+            <div className={twMerge('trip-image relative h-full w-full', className)}>
                 <Image src={src} fill alt="Cover image" className="object-cover" />
             </div>
         );
@@ -56,7 +57,7 @@ const ImageDivider = ({ images, height = 300, gap = '4px', partSize = 2 }: Props
     };*/
 
     return width > 640 ? (
-        <div className="flex flex-row" style={{ height, maxHeight: height, gap }}>
+        <div className={twMerge('flex flex-row', desktopClassName)} style={{ gap }}>
             {drawImage(images[0])}
             {groups.length > 0 && (
                 <div className="flex h-full w-full flex-col" style={{ gap }}>
@@ -76,7 +77,7 @@ const ImageDivider = ({ images, height = 300, gap = '4px', partSize = 2 }: Props
             )}
         </div>
     ) : (
-        <div className="flex w-full snap-x snap-mandatory overflow-scroll" style={{ height, maxHeight: height }}>
+        <div className={twMerge('flex w-full snap-x snap-mandatory overflow-scroll', mobileClassName)}>
             {images.map((img) => drawImage(img, 'min-w-full snap-start'))}
         </div>
     );
