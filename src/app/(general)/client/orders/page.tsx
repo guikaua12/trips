@@ -18,7 +18,7 @@ export default async function OrdersPage() {
     const response = await getAllTripReservations({ page_start: 1, token });
 
     return (
-        <div className="mb-8 p-5">
+        <div className="container mx-auto mb-8 p-5">
             <h2 className="mb-4">Minhas viagens</h2>
 
             <MyTripsWrapper response={response} />

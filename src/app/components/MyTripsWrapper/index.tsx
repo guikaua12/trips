@@ -142,24 +142,27 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
 
             {!state.loading && state.items.length > 0 && (
                 <InfiniteScroll
-                    className="flex flex-col gap-5"
+                    style={{ overflow: 'hidden' }}
                     dataLength={state.items.length}
                     next={next}
                     hasMore={state.page < state.response.pages!}
                     loader={
-                        <div className="flex w-full items-center justify-center">
+                        <div className="mt-8 flex w-full items-center justify-center">
                             <CircleLoading />
                         </div>
                     }
-                    endMessage={<p className="text-center">Não há mais nada para carregar.</p>}
+                    endMessage={<p className="mt-8 text-center">Não há mais nada para carregar.</p>}
                 >
-                    {state.items.map((tripReservation) => (
-                        <MyTrip
-                            key={tripReservation.id}
-                            tripReservation={tripReservation}
-                            handleCancelClick={handleCancelClick}
-                        />
-                    ))}
+                    <div className="grid grid-cols-1 items-center justify-center gap-5 overflow-hidden sm:grid-cols-3">
+                        {state.items.map((tripReservation) => (
+                            <MyTrip
+                                key={tripReservation.id}
+                                tripReservation={tripReservation}
+                                handleCancelClick={handleCancelClick}
+                                className=""
+                            />
+                        ))}
+                    </div>
                 </InfiniteScroll>
             )}
 
@@ -167,7 +170,7 @@ export default function MyTripsWrapper({ response: defaultResponse }: MyTripsWra
                 <p className="mt-8 text-center">Nenhuma hospedagem encontrada!</p>
             )}
 
-            {state.loading && <MyTripsWrapperSkeleton quantity={2} />}
+            {state.loading && <MyTripsWrapperSkeleton quantity={6} />}
         </>
     );
 }

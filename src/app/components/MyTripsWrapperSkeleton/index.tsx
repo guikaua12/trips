@@ -17,12 +17,10 @@ export default function MyTripsWrapperSkeleton({ quantity }: MyTripsWrapperSkele
     );
 
     return (
-        <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-5">
-                {items.map((item) => (
-                    <MyTripSkeleton key={item.id} />
-                ))}
-            </div>
+        <div className="grid grid-cols-1 gap-5 overflow-hidden sm:grid-cols-3">
+            {items.map((item) => (
+                <MyTripSkeleton key={item.id} />
+            ))}
         </div>
     );
 }
