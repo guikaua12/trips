@@ -9,7 +9,9 @@ Ele é responsivo, ou seja, se adapta a diferentes tamanhos de tela e dispositiv
 
 Como esse é um projeto pessoal que eu fiz para praticar as minhas habilidades de desenvolvimento web, não implementei um sistema de pagamentos.
 
-Como rodar no seu ambiente:
+O backend que dá vida ao site: [trips-api](https://github.com/guikaua12/trips-api) 
+
+## Como rodar no seu ambiente:
 ```bash
 npm install && npm run dev
 # ou
