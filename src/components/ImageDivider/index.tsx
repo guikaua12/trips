@@ -23,15 +23,34 @@ function divideArrayIntoParts<T>(arr: T[], partSize: number, skip: number = 0) {
     return result;
 }
 
+const drawImage = (src: string = '', className: string = '') => {
+    return (
+        <div className={twMerge('trip-image relative h-full w-full', className)}>
+            <Image src={src} fill alt="Cover image" className="object-cover" />
+        </div>
+    );
+};
+
+type ScreenType = 'mobile' | 'desktop';
+
+const getScreenType = (width: number): ScreenType => {
+    if (width <= 640) return 'mobile';
+    return 'desktop';
+};
+
 const ImageDivider = ({ images, gap = '4px', partSize = 2, mobileClassName = '', desktopClassName = '' }: Props) => {
-    const [width, setWidth] = useState(0);
+    const [screenType, setScreenType] = useState<ScreenType>();
 
     const groups = useMemo(() => divideArrayIntoParts(images, partSize, 1), [images, partSize]);
 
     useEffect(() => {
-        setWidth(window.innerWidth);
+        setScreenType(getScreenType(window.innerWidth));
+
         const onResize = () => {
-            setWidth(window.innerWidth);
+            const newScreenType = getScreenType(window.innerWidth);
+            if (newScreenType !== screenType) {
+                setScreenType(newScreenType);
+            }
         };
 
         window.addEventListener('resize', onResize);
@@ -39,24 +58,7 @@ const ImageDivider = ({ images, gap = '4px', partSize = 2, mobileClassName = '',
         return () => window.removeEventListener('resize', onResize);
     }, []);
 
-    const drawImage = useCallback((src: string = '', className: string = '') => {
-        return (
-            <div className={twMerge('trip-image relative h-full w-full', className)}>
-                <Image src={src} fill alt="Cover image" className="object-cover" />
-            </div>
-        );
-    }, []);
-
-    /*const GroupWrapper = (length: number, children: ReactNode) => {
-        const flexDirection = length === partSize ? 'column' : 'row';
-        return (
-            <div className="groupWrapper flex h-full w-full" style={{ flexDirection }}>
-                {children}
-            </div>
-        );
-    };*/
-
-    return width > 640 ? (
+    return screenType === 'desktop' ? (
         <div className={twMerge('flex flex-row', desktopClassName)} style={{ gap }}>
             {drawImage(images[0])}
             {groups.length > 0 && (
