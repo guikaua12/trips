@@ -1,5 +1,4 @@
 import TripSearch from '@/app/components/TripSearch';
-import QuickSearch from '@/app/components/QuickSearch';
 import RecommendedTrips from '@/app/components/RecommendedTrips';
 import { searchTrip } from '@/services/trips';
 
@@ -11,7 +10,6 @@ export default async function Home() {
     return (
         <>
             <TripSearch />
-            <QuickSearch />
             <RecommendedTrips trips={response.trips || []} />
         </>
     );
