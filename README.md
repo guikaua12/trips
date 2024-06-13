@@ -1,4 +1,4 @@
-Deploy: [https://trips-virid.vercel.app/](https://trips-virid.vercel.app/)
+Deploy: [https://trips-virid.vercel.app/](https://trips.approximations.software/)
 
 # Trips
 Trips é um site que eu criei usando Next.Js e TailwindCSS que conta com um sistema de agendamento de viagens simples, nele você pode ver viagens disponíveis, agendar viagens e ver todas as viagens que você já agendou.
