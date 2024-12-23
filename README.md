@@ -1,3 +1,5 @@
+Demo: https://trips.guilhermekaua.tech/
+
 # Trips
 
 Trips is a web application developed using Next.js and TailwindCSS, offering a simple travel scheduling system. Users can browse available trips, book their desired journeys, and view all their scheduled trips.
