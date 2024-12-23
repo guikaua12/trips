@@ -1,21 +1,57 @@
-Deploy: [https://trips.approximations.software/](https://trips.approximations.software/)
-
 # Trips
-Trips é um site que eu criei usando Next.Js e TailwindCSS que conta com um sistema de agendamento de viagens simples, nele você pode ver viagens disponíveis, agendar viagens e ver todas as viagens que você já agendou.
 
-Você pode escolher entre diversos destinos e datas, ver as informações e as fotos dos locais, e agendar a sua viagem com apenas alguns cliques.
+Trips is a web application developed using Next.js and TailwindCSS, offering a simple travel scheduling system. Users can browse available trips, book their desired journeys, and view all their scheduled trips.
 
-Ele é responsivo, ou seja, se adapta a diferentes tamanhos de tela e dispositivos, garantindo uma experiência de navegação agradável e intuitiva.
+## Table of Contents
 
-Como esse é um projeto pessoal que eu fiz para praticar as minhas habilidades de desenvolvimento web, não implementei um sistema de pagamentos.
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
 
-O backend que dá vida ao site: [trips-api](https://github.com/guikaua12/trips-api) 
+## Introduction
 
-## Como rodar no seu ambiente:
-```bash
-npm install && npm run dev
-# ou
-yarn install && yarn dev
-# ou
-pnpm install && pnpm dev
-```
+The Trips application allows users to:
+
+- Explore various destinations and dates
+- View detailed information and photos of locations
+- Book trips with just a few clicks
+
+The application is responsive, adapting seamlessly to different screen sizes and devices, ensuring an intuitive and pleasant browsing experience.
+
+**Note:** This is a personal project developed to practice web development skills; therefore, a payment system has not been implemented.
+
+## Features
+
+- User-friendly interface for browsing and booking trips
+- Responsive design for optimal viewing on various devices
+- Integration with a backend API for data management
+
+## Installation
+
+To set up the project locally, follow these steps:
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/guikaua12/trips.git
+   cd trips
+   ```
+2. **Install dependencies:**
+    ##### Using npm:
+    ```bash
+    npm install
+    ```
+   ##### Or using yarn:
+    ```bash
+    yarn install
+    ```
+3. **Start the development server:**
+    ##### Using npm:
+    ```bash
+    npm run dev
+    ```
+   ##### Or using yarn:
+    ```bash
+    yarn dev
+    ```
+
