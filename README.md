@@ -45,7 +45,7 @@ To set up the project locally, follow these steps:
     ```
    ##### Or using yarn:
     ```bash
-    yarn install
+    yarn
     ```
 3. **Start the development server:**
     ##### Using npm:
